@@ -79,28 +79,38 @@ def score_and_curate_with_claude(articles):
 
     articles_text = json.dumps(articles, indent=2)
 
-    prompt = f"""You are curating the daily news briefing for "Transatlantic Intelligence," a blog about AI adoption in government, written from a transatlantic (US + EU) perspective.
+    prompt = f"""You are curating a twice-weekly news briefing for "Transatlantic Intelligence," a blog about AI adoption in government, written from a transatlantic (US + EU) perspective.
+
+IMPORTANT CONTEXT: This is NOT a news or commentary site. It publishes roughly one thoughtful blog post per week focused on AI adoption trends, major policy changes, and structural shifts in how governments use AI. The briefing should surface stories worth writing about days later — not breaking news or product announcements that will be stale by tomorrow.
 
 The blog is written by:
 - Suzanne Chartol: runs Customer Experience at CORAS, a US gov-tech company
 - Her daughter: works at the European Stability Mechanism doing AI adoption, did a Schuman traineeship at the European Parliament
 
-Here are today's candidate articles:
+Here are this week's candidate articles:
 
 {articles_text}
 
 Your job:
-1. Select the 20-25 most relevant and interesting stories. Deduplicate similar stories — pick the best version.
+1. Select the 20-25 most relevant stories. Deduplicate similar stories — pick the best version.
 2. For each selected story, provide:
    - A compelling rewritten title (concise, specific)
    - A 1-2 sentence summary
    - 4-5 key bullet points
-   - A blog angle specific to Transatlantic Intelligence (reference Suzanne's CORAS work or her daughter's ESM/EU Parliament background where natural)
+   - A blog angle specific to Transatlantic Intelligence (reference Suzanne's CORAS work or her daughter's ESM/EU Parliament background where natural). The angle should suggest how this could become a full blog post, not just a reaction to news.
    - Category: one of "gov-us", "eu", "defense", "company", "enterprise", "policy", "infra"
    - Scores (1-5 each):
-     * convo: How provocative/debate-worthy is this? Will readers want to discuss it?
-     * gov: How directly relevant to government AI adoption, policy, or public sector?
-     * impact: How significant for the overall AI domain?
+     * convo: How much does this invite a substantive opinion or perspective? Would this spark an interesting blog post with a real point of view, not just a summary?
+     * gov: How directly relevant to government/public sector AI adoption, procurement, regulation, or policy? Score 1 for pure industry news with no gov angle.
+     * impact: How significant is this for the broader trajectory of AI adoption? Favor structural shifts, policy milestones, and adoption patterns over product launches, funding rounds, or daily headlines.
+
+SCORING GUIDANCE:
+- Stories about new AI regulations, executive orders, EU AI Act enforcement, procurement policy changes → score high
+- Stories about real-world government AI deployments (successes or failures) → score high
+- Stories about AI adoption patterns, workforce impact, or institutional change → score high
+- US/EU comparisons or transatlantic dynamics → score very high
+- Product launches, company earnings, celebrity AI takes, routine funding → score low unless they signal a structural shift
+- Stories that will be irrelevant in a week → score low on impact
 
 Return ONLY a JSON array of objects with this exact structure (no markdown, no commentary):
 [
@@ -316,9 +326,9 @@ body {{
   <div class="sort-row">
     <label>Sort:</label>
     <button class="sort-btn active" data-sort="score">Blog Score</button>
-    <button class="sort-btn" data-sort="convo">Conversation Starter</button>
+    <button class="sort-btn" data-sort="convo">Blog-Worthy</button>
     <button class="sort-btn" data-sort="gov">Gov Relevance</button>
-    <button class="sort-btn" data-sort="impact">Domain Impact</button>
+    <button class="sort-btn" data-sort="impact">Lasting Impact</button>
     <button class="sort-btn" data-sort="category">Category</button>
   </div>
   <div class="filters" id="filters">
@@ -410,7 +420,7 @@ function renderStories() {{
     return '<div class="story-card' + readClass + (isTop && !read ? ' top-pick' : '') + '">' +
       (isTop && !read ? '<div class="top-pick-label">Top Pick for the Blog</div>' : '') +
       '<div class="story-top"><div class="story-top-left"><span class="story-tag ' + s.tagClass + '">' + s.tag + '</span>' + newBadge + '</div><div class="score-badge ' + sc + '">' + s.totalScore + '/15</div></div>' +
-      '<div class="score-breakdown"><div class="score-item">Debate <div class="score-dots">' + renderDots(s.scores.convo) + '</div></div><div class="score-item">Gov <div class="score-dots">' + renderDots(s.scores.gov) + '</div></div><div class="score-item">Impact <div class="score-dots">' + renderDots(s.scores.impact) + '</div></div></div>' +
+      '<div class="score-breakdown"><div class="score-item">Blog<div class="score-dots">' + renderDots(s.scores.convo) + '</div></div><div class="score-item">Gov <div class="score-dots">' + renderDots(s.scores.gov) + '</div></div><div class="score-item">Impact<div class="score-dots">' + renderDots(s.scores.impact) + '</div></div></div>' +
       '<div class="story-title">' + s.title + '</div><div class="story-summary">' + s.summary + '</div>' +
       '<button class="expand-toggle" onclick="toggleDetails(this,' + s.id + ')">Show details & blog angle</button>' +
       '<div class="details-expanded" id="details-' + s.id + '"><ul class="key-points">' + s.keyPoints.map(p => '<li>' + p + '</li>').join('') + '</ul>' +
