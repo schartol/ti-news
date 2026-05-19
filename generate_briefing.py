@@ -120,20 +120,47 @@ Sort by total score descending. Aim for 3-6 stories scoring 12+/15."""
 
     response = client.messages.create(
         model="claude-sonnet-4-6",
-        max_tokens=8000,
+        max_tokens=16000,
         messages=[{"role": "user", "content": prompt}]
     )
 
-    # Extract JSON from response
+    # Extract JSON from response with robust parsing
     text = response.content[0].text
-    # Try to parse directly, or extract from code block
-    try:
-        stories = json.loads(text)
-    except json.JSONDecodeError:
+
+    def try_parse_json(s):
+        """Try to parse JSON, with automatic repair for common issues."""
+        try:
+            return json.loads(s)
+        except json.JSONDecodeError:
+            pass
+        # Fix trailing commas before ] or }
+        s = re.sub(r',\s*([}\]])', r'\1', s)
+        # Fix missing commas between objects: }{ -> },{
+        s = re.sub(r'}\s*{', '},{', s)
+        try:
+            return json.loads(s)
+        except json.JSONDecodeError:
+            pass
+        # Try to extract individual objects and rebuild array
+        objects = []
+        for m in re.finditer(r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}', s):
+            try:
+                obj = json.loads(m.group())
+                if 'title' in obj and 'scores' in obj:
+                    objects.append(obj)
+            except json.JSONDecodeError:
+                continue
+        if objects:
+            return objects
+        return None
+
+    stories = try_parse_json(text)
+    if stories is None:
+        # Extract from code block
         match = re.search(r'\[.*\]', text, re.DOTALL)
         if match:
-            stories = json.loads(match.group())
-        else:
+            stories = try_parse_json(match.group())
+        if stories is None:
             raise ValueError("Could not parse Claude's response as JSON")
 
     print(f"Claude selected and scored {len(stories)} stories")
