@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="TI News">
+<title>Transatlantic Intelligence - News Briefing</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #FAFAFA;
+  --card-bg: #FFFFFF;
+  --text: #1a1a2e;
+  --text-secondary: #555;
+  --accent: #2D5BFF;
+  --accent-light: #EEF2FF;
+  --border: #E5E7EB;
+  --tag-gov: #059669; --tag-gov-bg: #ECFDF5;
+  --tag-eu: #2563EB; --tag-eu-bg: #EFF6FF;
+  --tag-defense: #DC2626; --tag-defense-bg: #FEF2F2;
+  --tag-company: #7C3AED; --tag-company-bg: #F5F3FF;
+  --tag-enterprise: #D97706; --tag-enterprise-bg: #FFFBEB;
+  --tag-policy: #0891B2; --tag-policy-bg: #ECFEFF;
+  --tag-infra: #6366F1; --tag-infra-bg: #EEF2FF;
+  --success: #059669; --success-bg: #ECFDF5;
+  --score-high: #059669; --score-mid: #D97706; --score-low: #9CA3AF;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  padding: 16px;
+  padding-top: max(16px, env(safe-area-inset-top));
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
+  -webkit-font-smoothing: antialiased;
+}
+
+.header { text-align: center; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 2px solid var(--border); }
+.header h1 { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
+.header .subtitle { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+
+.controls { margin-bottom: 16px; }
+
+.sort-row {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+  font-size: 12px; color: var(--text-secondary); flex-wrap: wrap;
+}
+.sort-row label { font-weight: 600; white-space: nowrap; }
+.sort-btn {
+  padding: 4px 10px; border-radius: 14px; border: 1px solid var(--border);
+  background: var(--card-bg); font-size: 11px; cursor: pointer;
+  color: var(--text-secondary); transition: all 0.15s; -webkit-tap-highlight-color: transparent;
+}
+.sort-btn:hover { border-color: var(--accent); color: var(--accent); }
+.sort-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+.filters {
+  display: flex; gap: 6px; flex-wrap: nowrap; overflow-x: auto;
+  -webkit-overflow-scrolling: touch; padding-bottom: 4px; scrollbar-width: none;
+}
+.filters::-webkit-scrollbar { display: none; }
+
+.filter-btn {
+  padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border);
+  background: var(--card-bg); font-size: 12px; cursor: pointer;
+  color: var(--text-secondary); white-space: nowrap; flex-shrink: 0;
+  transition: all 0.15s; -webkit-tap-highlight-color: transparent;
+}
+.filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+.filter-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+.score-legend {
+  display: flex; gap: 12px; justify-content: center; margin: 12px 0 16px;
+  font-size: 11px; color: var(--text-secondary); flex-wrap: wrap;
+}
+.score-legend span { display: flex; align-items: center; gap: 4px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.legend-high { background: var(--score-high); }
+.legend-mid { background: var(--score-mid); }
+.legend-low { background: var(--score-low); }
+
+.stories { display: flex; flex-direction: column; gap: 12px; }
+
+.story-card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px; transition: all 0.2s; position: relative;
+}
+.story-card.top-pick { border-color: var(--score-high); border-width: 2px; }
+
+.story-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 8px; }
+.story-top-left { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.story-tag {
+  font-size: 10px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.5px; padding: 3px 8px; border-radius: 4px; white-space: nowrap;
+}
+.tag-gov-us { color: var(--tag-gov); background: var(--tag-gov-bg); }
+.tag-eu { color: var(--tag-eu); background: var(--tag-eu-bg); }
+.tag-defense { color: var(--tag-defense); background: var(--tag-defense-bg); }
+.tag-company { color: var(--tag-company); background: var(--tag-company-bg); }
+.tag-enterprise { color: var(--tag-enterprise); background: var(--tag-enterprise-bg); }
+.tag-policy { color: var(--tag-policy); background: var(--tag-policy-bg); }
+.tag-infra { color: var(--tag-infra); background: var(--tag-infra-bg); }
+
+.score-badge {
+  display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 700;
+  padding: 4px 10px; border-radius: 8px; white-space: nowrap; flex-shrink: 0;
+}
+.score-high { color: var(--score-high); background: #ECFDF5; }
+.score-mid { color: var(--score-mid); background: #FFFBEB; }
+.score-low { color: var(--score-low); background: #F3F4F6; }
+
+.score-breakdown {
+  display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap;
+}
+.score-item {
+  font-size: 10px; color: var(--text-secondary); display: flex; align-items: center; gap: 3px;
+}
+.score-dots { display: flex; gap: 2px; }
+.score-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: #E5E7EB;
+}
+.score-dot.filled { background: var(--accent); }
+
+.story-title { font-size: 15px; font-weight: 600; line-height: 1.35; margin-bottom: 8px; }
+.story-summary { font-size: 13px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 10px; }
+.story-source { font-size: 11px; color: var(--text-secondary); margin-bottom: 10px; }
+.story-source a { color: var(--accent); text-decoration: none; }
+
+.blog-angle {
+  background: var(--accent-light); border-left: 3px solid var(--accent);
+  padding: 10px 14px; border-radius: 0 8px 8px 0; margin-bottom: 10px;
+}
+.blog-angle-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent); margin-bottom: 3px; }
+.blog-angle-text { font-size: 13px; line-height: 1.5; }
+
+.expand-toggle {
+  font-size: 12px; color: var(--accent); cursor: pointer;
+  background: none; border: none; padding: 4px 0; margin-bottom: 8px;
+  -webkit-tap-highlight-color: transparent;
+}
+.details-expanded { display: none; }
+.details-expanded.open { display: block; }
+.key-points { font-size: 13px; color: var(--text-secondary); margin-bottom: 10px; padding-left: 18px; }
+.key-points li { margin-bottom: 3px; line-height: 1.5; }
+
+.action-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.action-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 14px; background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: 8px; font-size: 12px; cursor: pointer;
+  color: var(--text-secondary); transition: all 0.15s; -webkit-tap-highlight-color: transparent;
+}
+.action-btn:hover, .action-btn:active { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+.action-btn.saved { border-color: var(--success); color: var(--success); background: var(--success-bg); cursor: default; }
+.action-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+.share-btn:hover, .share-btn:active { border-color: var(--tag-company); color: var(--tag-company); background: var(--tag-company-bg); }
+
+.top-pick-label {
+  font-size: 10px; font-weight: 700; color: var(--score-high);
+  text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;
+}
+
+.toast {
+  position: fixed; bottom: max(20px, env(safe-area-inset-bottom, 20px));
+  left: 50%; transform: translateX(-50%) translateY(100px);
+  background: var(--text); color: white; padding: 12px 24px;
+  border-radius: 10px; font-size: 14px; z-index: 100;
+  transition: transform 0.3s ease; white-space: nowrap; max-width: 90vw;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.spin { animation: spin 1s linear infinite; }
+
+@media (max-width: 480px) {
+  body { padding: 12px; }
+  .story-title { font-size: 14px; }
+  .action-btn { padding: 9px 12px; flex: 1; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Transatlantic Intelligence</h1>
+  <div class="subtitle">News Briefing &mdash; May 18, 2026</div>
+</div>
+
+<div class="controls">
+  <div class="sort-row">
+    <label>Sort:</label>
+    <button class="sort-btn active" data-sort="score">Blog Score</button>
+    <button class="sort-btn" data-sort="convo">Conversation Starter</button>
+    <button class="sort-btn" data-sort="gov">Gov Relevance</button>
+    <button class="sort-btn" data-sort="impact">Domain Impact</button>
+    <button class="sort-btn" data-sort="category">Category</button>
+  </div>
+  <div class="filters" id="filters">
+    <button class="filter-btn active" data-cat="all">All (22)</button>
+    <button class="filter-btn" data-cat="gov-us">US Gov</button>
+    <button class="filter-btn" data-cat="eu">EU</button>
+    <button class="filter-btn" data-cat="defense">Defense</button>
+    <button class="filter-btn" data-cat="company">AI Co's</button>
+    <button class="filter-btn" data-cat="enterprise">Enterprise</button>
+    <button class="filter-btn" data-cat="policy">Policy</button>
+    <button class="filter-btn" data-cat="infra">Infrastructure</button>
+  </div>
+</div>
+
+<div class="score-legend">
+  <span><span class="legend-dot legend-high"></span> Top pick (12-15)</span>
+  <span><span class="legend-dot legend-mid"></span> Strong (8-11)</span>
+  <span><span class="legend-dot legend-low"></span> Worth watching (5-7)</span>
+</div>
+
+<div class="stories" id="stories"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const stories = [
+  {
+    id: 1, category: "defense", tag: "Defense & Intel", tagClass: "tag-defense",
+    title: "Pentagon Signs Classified AI Deals with 7 Tech Giants — Anthropic Locked Out",
+    summary: "Seven AI companies won classified Pentagon network deployments. Anthropic is notably excluded after being branded a national security risk — an AI safety company vs. the defense establishment.",
+    keyPoints: ["Classified deployment across Pentagon networks","Anthropic excluded amid legal dispute with Trump admin","Pentagon requested $13.4B for drones/autonomous systems in 2026","$75B+ in AI defense spending since 2016","Maven AI integrated into military imagery analysis"],
+    blogAngle: "An AI safety company branded a national security risk is the kind of irony that writes itself. Explore the values-vs-defense tension, and compare how EU defense AI procurement differs. Your daughter could add the ESM/EU institutional perspective on defense tech partnerships.",
+    source: "Washington Post", sourceUrl: "https://www.washingtonpost.com/technology/2026/05/01/pentagon-ai-deals-microsoft-amazon-google-classified-military/",
+    scores: { convo: 5, gov: 5, impact: 5 }
+  },
+  {
+    id: 2, category: "policy", tag: "Policy", tagClass: "tag-policy",
+    title: "DOJ AI Litigation Task Force to Challenge State AI Laws in Federal Court",
+    summary: "The Trump administration created a DOJ task force to sue states over AI regulations, and is conditioning $42B in broadband funding on states repealing AI rules. State AGs are expected to fight back.",
+    keyPoints: ["DOJ task force challenging state AI laws starting Jan 2026","$42B BEAD broadband funds conditioned on repealing AI regs","Legal experts doubt executive preemption without Congress","State AGs preparing legal challenges","Creates regulatory uncertainty for every AI vendor"],
+    blogAngle: "The federal government weaponizing broadband funding to kill state AI laws is extraordinary. This has a direct EU parallel — the tension between national implementation of the AI Act and EU-level standards. A comparative governance deep dive.",
+    source: "Ropes & Gray", sourceUrl: "https://www.ropesgray.com/en/insights/alerts/2026/03/examining-the-landscape-and-limitations-of-the-federal-push-to-override-state-ai-regulation",
+    scores: { convo: 5, gov: 5, impact: 5 }
+  },
+  {
+    id: 3, category: "eu", tag: "EU Policy", tagClass: "tag-eu",
+    title: "EU AI Omnibus Deal: AI Act Gets First Major Revision — Deadlines Pushed Back Over a Year",
+    summary: "The Council, Parliament, and Commission agreed on May 7 to amend the AI Act. High-risk system deadlines pushed back 16 months. New bans on AI-generated non-consensual imagery. Transparency requirements tightened.",
+    keyPoints: ["High-risk use-based systems deferred to December 2027","Product systems deferred to August 2028","New prohibitions on deepfake intimate imagery and CSAM","Regulatory sandbox deadline pushed to August 2027","Transparency grace period cut from 6 to 3 months"],
+    blogAngle: "Is this pragmatism or an admission the original timeline was unrealistic? Your daughter can speak to how EU institutions are actually preparing (or not). Contrast with the US, which doesn't even have binding federal AI law yet — who's actually governing AI?",
+    source: "EU Council", sourceUrl: "https://www.consilium.europa.eu/en/press/press-releases/2026/05/07/artificial-intelligence-council-and-parliament-agree-to-simplify-and-streamline-rules/",
+    scores: { convo: 5, gov: 5, impact: 4 }
+  },
+  {
+    id: 4, category: "gov-us", tag: "US Gov", tagClass: "tag-gov-us",
+    title: "300,000 Federal Jobs Cut — GSA Plans to Automate 1 Million Work Hours After 40% Staff Reduction",
+    summary: "Roughly 9% of the federal workforce has been eliminated since early 2025. GSA announced plans to automate 1M hours annually after cutting 40% of staff. New 'Tech Force' hiring 1,000 AI specialists, but 77% of AI jobs require master's degrees.",
+    keyPoints: ["~300,000 civilian federal jobs cut since early 2025","GSA automating 1M work hours after 40% staff cuts","U.S. Tech Force hiring 1,000 AI/cloud specialists","77% of AI jobs need master's, 18% need PhDs","Only 37% of public sector workers see clear AI strategy"],
+    blogAngle: "The human cost meets the AI promise — is the government replacing people faster than it can retrain them? You see this from the CORAS side. Your daughter sees the EU approach, which is far more cautious about public sector workforce displacement. A powerful contrast piece.",
+    source: "Multiple sources", sourceUrl: "https://www.deloitte.com/us/en/insights/industry/government-public-sector-services/government-trends/2026/human-ai-collaboration-government-workforce.html",
+    scores: { convo: 5, gov: 5, impact: 4 }
+  },
+  {
+    id: 5, category: "company", tag: "AI Companies", tagClass: "tag-company",
+    title: "OpenAI Puts Ads in ChatGPT, Closes $122B Round at $852B Valuation, Eyes IPO",
+    summary: "OpenAI launched self-serve ads inside ChatGPT, closed a $122B funding round, and confirmed retail shares for a potential H2 2026 IPO. Also planning a $4B 'Deployment Company' for enterprise services.",
+    keyPoints: ["Self-serve ad platform now live inside ChatGPT","$122B round at $852B post-money valuation","Retail investor IPO shares reserved for H2 2026","$4B 'Deployment Company' for enterprise services","Pursuing acquisitions to expand enterprise presence"],
+    blogAngle: "The tool millions use for thinking now runs on an attention-economy business model. What does 'ads in the AI' mean for government and institutional users who need unbiased outputs? This is a conversation starter that bridges your audience's concerns.",
+    source: "Multiple sources", sourceUrl: "https://techdg.in/latest-ai-updates-may-2026-global-ai-news-trends/",
+    scores: { convo: 5, gov: 4, impact: 5 }
+  },
+  {
+    id: 6, category: "enterprise", tag: "Enterprise AI", tagClass: "tag-enterprise",
+    title: "80% of Orgs Hit by Risky AI Agent Behavior — 40% of Agentic Projects May Fail",
+    summary: "McKinsey reports 80% of organizations have encountered unauthorized AI agent actions. OWASP released an AI Agent Security Top 10. Only 22% treat agents as identity-bearing entities. Meta's internal agent briefly exposed sensitive data.",
+    keyPoints: ["80% of orgs experienced risky agent behaviors","Only 22% apply formal access controls to AI agents","40%+ of agentic AI projects expected to be abandoned","Meta internal agent briefly exposed sensitive data","OWASP released AI Agent Security Top 10 for 2026"],
+    blogAngle: "AI agents are operating inside government networks with less oversight than a junior intern. When 80% of orgs have had agent incidents and only 22% treat them as real identities, the governance gap is a ticking clock. Perfect for both your audiences.",
+    source: "Multiple sources", sourceUrl: "https://www.helpnetsecurity.com/2026/03/03/enterprise-ai-agent-security-2026/",
+    scores: { convo: 5, gov: 4, impact: 5 }
+  },
+  {
+    id: 7, category: "gov-us", tag: "US Gov", tagClass: "tag-gov-us",
+    title: "GAO Report: Federal Agencies Failing to Learn from AI Procurement Mistakes",
+    summary: "The GAO found agencies don't collect or share lessons learned from AI acquisitions. Officials can't evaluate AI costs or contractor proposals. Industry groups warn GSA's draft AI procurement clause could kill competition.",
+    keyPoints: ["Agencies lack AI technical experts to evaluate proposals","No systematic collection of procurement lessons learned","GSA draft clause grants gov ownership of all AI data/outputs","Industry warns clause will decrease competition and raise costs","California launched competing state AI vendor certification"],
+    blogAngle: "This is directly in your CORAS wheelhouse. The procurement system isn't keeping up with the technology — and the proposed fixes might make it worse. A practitioner's view from inside the gov-tech ecosystem would be incredibly valuable for your readers.",
+    source: "GAO", sourceUrl: "https://www.gao.gov/products/gao-26-107859",
+    scores: { convo: 4, gov: 5, impact: 4 }
+  },
+  {
+    id: 8, category: "infra", tag: "Infrastructure", tagClass: "tag-infra",
+    title: "AI Data Centers Are Now the 5th Largest Energy Consumer on Earth — States Push Back",
+    summary: "Data center energy consumption is approaching 1,050 TWh globally, rivaling Japan. Maine is set to impose the first construction moratorium. Twenty-seven states considering legislation targeting large AI loads. Utility costs becoming a midterm campaign issue.",
+    keyPoints: ["Data centers approaching 1,050 TWh — 5th largest energy consumer globally","Maine poised for first data center construction moratorium","27 states considering legislation targeting large AI loads","Utility costs becoming a midterm election issue","Major data center developers signed Ratepayer Protection Pledge"],
+    blogAngle: "AI's physical footprint is becoming a political issue in ways no one predicted. Energy costs, water use, and land conversion are the unsexy side of AI that voters actually care about. Compare the US backlash with EU sustainability requirements in the AI Act.",
+    source: "Multiple sources", sourceUrl: "https://www.lawfaremedia.org/article/how-ai-data-centers-are-shaping-politics",
+    scores: { convo: 5, gov: 4, impact: 4 }
+  },
+  {
+    id: 9, category: "defense", tag: "Defense & Intel", tagClass: "tag-defense",
+    title: "US Intelligence Community Elevates AI as Top-Tier Global Threat for First Time",
+    summary: "The ODNI's 2026 threat assessment treats AI far more prominently than ever, calling it a 'defining technology' and classifying it alongside traditional geopolitical threats. China identified as the most capable AI competitor.",
+    keyPoints: ["AI classified alongside traditional geopolitical threats","China 'most capable competitor' in AI","AI already being used in active combat","Major elevation from 2024 and 2025 reports","Focus on AI-enabled warfare redefining military affairs"],
+    blogAngle: "When the intelligence community starts treating AI itself as a threat — not just a tool — that's a paradigm shift. Compare US (existential/military framing) vs. EU (regulatory/rights framing). Two continents, two very different threat models.",
+    source: "Defense One", sourceUrl: "https://www.defenseone.com/threats/2026/03/AI-intelligence-new-global-threat/412232/",
+    scores: { convo: 5, gov: 4, impact: 4 }
+  },
+  {
+    id: 10, category: "company", tag: "AI Companies", tagClass: "tag-company",
+    title: "Anthropic Warns of 60% Chance AI Begins Recursive Self-Improvement by 2028",
+    summary: "Anthropic's Head of Policy put a 60% probability on recursive AI self-improvement by 2028 — while simultaneously releasing Mythos, a more powerful reasoning model, and expanding autonomous agent capabilities.",
+    keyPoints: ["60% probability of recursive self-improvement by 2028","Mythos model released for strategic planning tasks","Expanded managed agents for coding, finance, and law","Sub-agent coordination in public beta","Company building capability while warning of risks"],
+    blogAngle: "Building more powerful systems while warning they could become uncontrollable. How should regulators on either side of the Atlantic think about a company that profits from the very risk it warns about? Provocative but fair.",
+    source: "Multiple sources", sourceUrl: "https://llm-stats.com/ai-news",
+    scores: { convo: 5, gov: 3, impact: 5 }
+  },
+  {
+    id: 11, category: "gov-us", tag: "US Gov", tagClass: "tag-gov-us",
+    title: "White House AI Framework: 7 Pillars but No Binding Law — Just Recommendations",
+    summary: "The National AI Policy Framework outlines legislative recommendations across child safety, infrastructure, IP, free speech, innovation, workforce, and preemption. It's aspirational, not binding.",
+    keyPoints: ["7 pillars including child protection, IP, workforce, preemption","Pushes for single federal standard over state patchwork","Supports streamlined permitting for AI infrastructure","Small business AI adoption incentives","Not binding — recommendations only"],
+    blogAngle: "The EU is amending binding law while the US publishes a non-binding wish list. Your transatlantic framing practically writes itself: who's actually governing, and who's posturing?",
+    source: "White House", sourceUrl: "https://www.whitehouse.gov/releases/2026/03/president-donald-j-trump-unveils-national-ai-legislative-framework/",
+    scores: { convo: 4, gov: 5, impact: 3 }
+  },
+  {
+    id: 12, category: "enterprise", tag: "Enterprise AI", tagClass: "tag-enterprise",
+    title: "Deloitte: Only 20% Seeing AI Revenue Growth Despite 86% Increasing Budgets",
+    summary: "The 2026 State of AI report reveals a massive gap: 86% of companies increasing AI spend, but only 20% seeing actual revenue growth. 79% face significant adoption challenges, up sharply from 2025.",
+    keyPoints: ["64% of organizations actively using AI","86% increasing AI budgets in 2026","Only 20% seeing revenue vs. 74% hoping for it","Skills gap is #1 barrier","Agentic AI adoption at 44-48% in telecom/retail"],
+    blogAngle: "The hope-vs-reality gap is the enterprise AI story of 2026. If the private sector can't crack it with unlimited budgets, what chance do resource-constrained government agencies have? Or does government's more cautious approach actually produce better outcomes?",
+    source: "Deloitte", sourceUrl: "https://www.deloitte.com/us/en/what-we-do/capabilities/applied-artificial-intelligence/content/state-of-ai-in-the-enterprise.html",
+    scores: { convo: 4, gov: 3, impact: 5 }
+  },
+  {
+    id: 13, category: "eu", tag: "EU", tagClass: "tag-eu",
+    title: "ECB Shifts from AI Experimentation to Systematic Deployment Across All Operations",
+    summary: "The ECB announced a full transition from AI pilots to systematic implementation across monetary policy analysis and supervision over 2026-2027. Euro area firms allocating 9% of total investment to AI.",
+    keyPoints: ["ECB moving from pilots to org-wide deployment","Central banking digitalization programme accelerating","9% of euro area firm investment going to AI","SMEs and large firms alike increasing AI spending","AI integration into monetary policy and bank supervision"],
+    blogAngle: "Your daughter's ESM connection makes this personal. How are EU financial institutions actually adopting AI internally? The gap between the press release and the reality of institutional culture change would make a great insider piece.",
+    source: "ECB", sourceUrl: "https://www.ecb.europa.eu/press/key/date/2026/html/ecb.sp260323_1~1e06784a89.en.html",
+    scores: { convo: 3, gov: 5, impact: 4 }
+  },
+  {
+    id: 14, category: "gov-us", tag: "US Gov", tagClass: "tag-gov-us",
+    title: "Data Security Is the #1 Barrier to Federal AI — Not Budget, Not Talent",
+    summary: "Legacy data classification, compartmentalization, and the lack of zero-trust architectures are the primary obstacles holding back AI deployment across federal agencies. Spending rising 15% to $3.1B by 2028.",
+    keyPoints: ["Data classification slowing AI rollout more than anything else","Legacy infrastructure can't support AI workloads","Need for AI systems that cross security domains","Zero trust architectures needed for AI compatibility","Federal AI spend rising from $2.7B to $3.1B by 2028"],
+    blogAngle: "Budget isn't the problem — data is. A practical piece your CORAS audience would love: what does the data security challenge look like from the inside of a government contractor's CX team?",
+    source: "Nextgov/FCW", sourceUrl: "https://www.nextgov.com/ideas/2026/05/unleashing-ai-across-us-government-data-security-challenge-holding-back-decision-advantage/413428/",
+    scores: { convo: 3, gov: 5, impact: 4 }
+  },
+  {
+    id: 15, category: "gov-us", tag: "US Gov", tagClass: "tag-gov-us",
+    title: "Accenture + OpenAI Partner for Federal AI Deployment",
+    summary: "Accenture Federal Services partnered with OpenAI to accelerate secure AI adoption across federal agencies, combining federal security clearances with frontier AI models.",
+    keyPoints: ["Partnership targets secure, compliant federal AI","Combines Accenture's clearances with OpenAI's models","Part of broader gov-tech partnership trend","Raises vendor lock-in and concentration concerns","Questions about mid-size contractor competitiveness"],
+    blogAngle: "The big players are locking up government AI. How do companies like CORAS compete when Accenture+OpenAI can bundle clearances, models, and scale? Your insider perspective would resonate with the gov-tech community.",
+    source: "Accenture", sourceUrl: "https://newsroom.accenture.com/news/2026/accenture-federal-services-and-openai-partner-to-accelerate-secure-ai-adoption-across-the-federal-government",
+    scores: { convo: 3, gov: 5, impact: 3 }
+  },
+  {
+    id: 16, category: "company", tag: "AI Companies", tagClass: "tag-company",
+    title: "Google Employees Push Back on Pentagon AI Contract — But Lack 2018's Leverage",
+    summary: "Employee backlash to Google's Pentagon AI contract has resurfaced, but unlike the 2018 Project Maven revolt, workers' power to force change has significantly diminished.",
+    keyPoints: ["Employee backlash to new Pentagon AI deal","Unlike 2018 Maven revolt, workers lack leverage","Responsible AI report released amid military partnership","Company memo on 'responsible' military AI drew criticism","Broader tech industry moving toward defense work"],
+    blogAngle: "The tech workforce's ability to say 'no' to defense AI has evaporated. What happened? And what does it mean when the internal ethics check at these companies no longer functions? Connects to both the Pentagon deals story and the responsible AI accountability gap.",
+    source: "Fortune", sourceUrl: "https://fortune.com/2026/05/04/google-employee-backlash-pentagon-ai-contract-power-waned-since-project-maven/",
+    scores: { convo: 5, gov: 3, impact: 3 }
+  },
+  {
+    id: 17, category: "enterprise", tag: "Enterprise AI", tagClass: "tag-enterprise",
+    title: "Meta Goes Closed-Source for Healthcare AI — Muse Spark Built with 1,000 Physicians",
+    summary: "Meta released Muse Spark, matching Llama 4 Maverick at 10x lower compute cost. It's closed-source — a strategic reversal — and built with 1,000 physicians for clinical AI capabilities.",
+    keyPoints: ["Matches Llama 4 Maverick at 10x less compute","Closed-source — breaking from Meta's open strategy","Developed with 1,000 physicians","Strong multimodal and agentic capabilities","Raises open-source AI strategy questions"],
+    blogAngle: "Meta abandoning open-source for high-stakes domains signals that 'open' might not survive contact with liability. What does this mean for EU institutions and governments that built AI strategies around open models?",
+    source: "Multiple sources", sourceUrl: "https://llm-stats.com/llm-updates",
+    scores: { convo: 4, gov: 3, impact: 4 }
+  },
+  {
+    id: 18, category: "policy", tag: "Policy", tagClass: "tag-policy",
+    title: "California Launches AI Vendor Certification — Direct Challenge to Federal Preemption",
+    summary: "Governor Newsom signed an executive order directing state agencies to develop certification requirements and procurement standards for AI vendors, directly challenging the federal push to preempt state AI laws.",
+    keyPoints: ["New state AI vendor certification framework","Procurement standards for AI vendors selling to California","Direct challenge to Trump admin's preemption push","State vs. federal regulatory showdown intensifying","Could become de facto national standard like auto emissions"],
+    blogAngle: "California as the AI regulation battleground — just like it was for auto emissions and privacy. Could California's AI vendor certification become the de facto global standard, the way GDPR did for privacy? Your EU-savvy readers will immediately see the parallel.",
+    source: "Ropes & Gray", sourceUrl: "https://www.ropesgray.com/en/insights/alerts/2026/04/newsom-signs-executive-order-establishing-ai-vendor-certification-and-procurement-framework",
+    scores: { convo: 4, gov: 4, impact: 3 }
+  },
+  {
+    id: 19, category: "defense", tag: "Defense & Intel", tagClass: "tag-defense",
+    title: "SIPRI Maps the Military AI Industry — Warns Governance Risks Being Shaped by Commercial Interests",
+    summary: "SIPRI's new analysis maps the sprawling military AI ecosystem and argues that without understanding who actually builds these systems, governance efforts risk being ineffective — or captured by industry.",
+    keyPoints: ["Military AI is a layered 'stack,' not a single industry","Cloud giants (AWS, Azure) dominate the infrastructure layer","Little clarity on who should represent 'industry' in governance","Risk of governance being shaped by commercial interests","Published with Netherlands Ministry of Foreign Affairs"],
+    blogAngle: "Who governs military AI when the governance process itself is shaped by the companies selling it? This is a sharp question that spans both sides of the Atlantic. Your daughter's EU Parliament experience would add real credibility here.",
+    source: "SIPRI", sourceUrl: "https://www.sipri.org/commentary/topical-backgrounder/2026/mapping-military-ai-industry",
+    scores: { convo: 4, gov: 4, impact: 3 }
+  },
+  {
+    id: 20, category: "eu", tag: "EU", tagClass: "tag-eu",
+    title: "UN Rights Chief: AI Must Be Built on Inclusivity, Accountability, and Global Standards",
+    summary: "The UN High Commissioner for Human Rights warned that without urgent guardrails, AI risks deepening inequality, amplifying bias, and fuelling real-world harm. Called for global coordination beyond any single nation's framework.",
+    keyPoints: ["AI risks deepening inequality without guardrails","Call for global standards beyond national frameworks","Emphasis on inclusivity and human rights in AI design","Accountability mechanisms needed before deployment at scale","Links AI governance to development and democracy"],
+    blogAngle: "The UN framing AI through a human rights lens is a distinctly different approach from both the US (innovation/security) and EU (regulation/market). A third perspective your blog could explore — especially relevant for your daughter's international institution background.",
+    source: "UN News", sourceUrl: "https://news.un.org/en/story/2026/02/1167000",
+    scores: { convo: 3, gov: 4, impact: 4 }
+  },
+  {
+    id: 21, category: "policy", tag: "Policy", tagClass: "tag-policy",
+    title: "Google's 2026 Responsible AI Report: Mandatory Positioning or Real Accountability?",
+    summary: "Google published its responsible AI progress report amid scrutiny over military partnerships and AI Overview errors. Critics say the industry's 'transparency offensive' is competitive positioning dressed as ethics.",
+    keyPoints: ["Report released amid military AI and search quality controversies","Critics call for quantified benchmarks over narrative reports","AI accountability shifting from optional to competitive necessity","Center for AI Safety pushing for third-party audits","EU AI Act compliance driving industry transparency"],
+    blogAngle: "Are corporate responsible AI reports genuine accountability or just compliance theater? With the EU AI Act now requiring real transparency, this is the year we find out. A skeptical but fair analysis would stand out.",
+    source: "Tech Buzz", sourceUrl: "https://www.techbuzz.ai/articles/google-drops-2026-responsible-ai-report-amid-industry-scrutiny",
+    scores: { convo: 4, gov: 3, impact: 3 }
+  },
+  {
+    id: 22, category: "enterprise", tag: "Enterprise AI", tagClass: "tag-enterprise",
+    title: "50% of Governments Worldwide Will Enforce Responsible AI Regulations by End of 2026",
+    summary: "By year's end, half of all governments globally are expected to have enforceable responsible AI regulations. The patchwork of national approaches is creating compliance complexity for multinationals.",
+    keyPoints: ["50% of governments enforcing AI regulations by end of 2026","Patchwork of national approaches complicating compliance","EU leading with AI Act, US lagging with framework only","Ethical AI becoming table stakes for enterprise contracts","Focus on transparency, bias mitigation, and accountability"],
+    blogAngle: "The regulatory race is accelerating — and the fragmentation is the story. Your blog's transatlantic lens is uniquely positioned to compare approaches and ask: is convergence possible, or are we heading toward competing AI governance blocs?",
+    source: "WebProNews", sourceUrl: "https://www.webpronews.com/global-ai-regulations-2026-ethics-bias-mitigation-and-accountability/",
+    scores: { convo: 3, gov: 4, impact: 4 }
+  }
+];
+
+// Compute total score
+stories.forEach(s => { s.totalScore = s.scores.convo + s.scores.gov + s.scores.impact; });
+
+let currentFilter = 'all';
+let currentSort = 'score';
+
+function getScoreClass(total) {
+  if (total >= 12) return 'score-high';
+  if (total >= 8) return 'score-mid';
+  return 'score-low';
+}
+
+function sortStories(list, sortKey) {
+  return [...list].sort((a, b) => {
+    if (sortKey === 'score') return b.totalScore - a.totalScore;
+    if (sortKey === 'convo') return b.scores.convo - a.scores.convo || b.totalScore - a.totalScore;
+    if (sortKey === 'gov') return b.scores.gov - a.scores.gov || b.totalScore - a.totalScore;
+    if (sortKey === 'impact') return b.scores.impact - a.scores.impact || b.totalScore - a.totalScore;
+    if (sortKey === 'category') return a.category.localeCompare(b.category) || b.totalScore - a.totalScore;
+    return 0;
+  });
+}
+
+function renderDots(val) {
+  return Array.from({length: 5}, (_, i) => `<span class="score-dot ${i < val ? 'filled' : ''}"></span>`).join('');
+}
+
+function renderStories() {
+  const container = document.getElementById('stories');
+  let filtered = currentFilter === 'all' ? stories : stories.filter(s => s.category === currentFilter);
+  filtered = sortStories(filtered, currentSort);
+
+  container.innerHTML = filtered.map((s, idx) => {
+    const sc = getScoreClass(s.totalScore);
+    const isTop = s.totalScore >= 12;
+    return `
+    <div class="story-card ${isTop ? 'top-pick' : ''}">
+      ${isTop ? '<div class="top-pick-label">Top Pick for the Blog</div>' : ''}
+      <div class="story-top">
+        <div class="story-top-left">
+          <span class="story-tag ${s.tagClass}">${s.tag}</span>
+        </div>
+        <div class="score-badge ${sc}">${s.totalScore}/15</div>
+      </div>
+      <div class="score-breakdown">
+        <div class="score-item">Debate <div class="score-dots">${renderDots(s.scores.convo)}</div></div>
+        <div class="score-item">Gov <div class="score-dots">${renderDots(s.scores.gov)}</div></div>
+        <div class="score-item">Impact <div class="score-dots">${renderDots(s.scores.impact)}</div></div>
+      </div>
+      <div class="story-title">${s.title}</div>
+      <div class="story-summary">${s.summary}</div>
+      <button class="expand-toggle" onclick="toggleDetails(this, ${s.id})">Show details & blog angle</button>
+      <div class="details-expanded" id="details-${s.id}">
+        <ul class="key-points">${s.keyPoints.map(p => '<li>' + p + '</li>').join('')}</ul>
+        <div class="blog-angle">
+          <div class="blog-angle-label">Blog Angle</div>
+          <div class="blog-angle-text">${s.blogAngle}</div>
+        </div>
+      </div>
+      <div class="story-source">Source: <a href="${s.sourceUrl}" target="_blank" rel="noopener">${s.source}</a></div>
+      <div class="action-row">
+        <button class="action-btn" onclick="saveToNotes(${s.id}, this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          Save to Notes
+        </button>
+        <button class="action-btn share-btn" onclick="shareStory(${s.id})">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          Share
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleDetails(btn, id) {
+  const d = document.getElementById('details-' + id);
+  const open = d.classList.toggle('open');
+  btn.textContent = open ? 'Hide details' : 'Show details & blog angle';
+}
+
+// Filters
+document.getElementById('filters').addEventListener('click', function(e) {
+  if (!e.target.classList.contains('filter-btn')) return;
+  this.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  currentFilter = e.target.dataset.cat;
+  renderStories();
+});
+
+// Sort
+document.querySelector('.sort-row').addEventListener('click', function(e) {
+  if (!e.target.classList.contains('sort-btn')) return;
+  this.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  currentSort = e.target.dataset.sort;
+  renderStories();
+});
+
+// Toast
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// Save
+async function saveToNotes(id, btn) {
+  const s = stories.find(x => x.id === id);
+  if (!s) return;
+  const noteText = [
+    s.title, '', 'Score: ' + s.totalScore + '/15 (Debate: ' + s.scores.convo + ' | Gov: ' + s.scores.gov + ' | Impact: ' + s.scores.impact + ')',
+    '', 'Category: ' + s.tag, '', s.summary, '', 'KEY POINTS:', ...s.keyPoints.map(p => '• ' + p),
+    '', 'BLOG ANGLE:', s.blogAngle, '', 'Source: ' + s.sourceUrl
+  ].join('\n');
+
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: 'TI: ' + s.title, text: noteText });
+      btn.classList.add('saved');
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Shared';
+      return;
+    } catch (err) { if (err.name === 'AbortError') return; }
+  }
+
+  if (window.cowork && window.cowork.callMcpTool) {
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spin"><circle cx="12" cy="12" r="10" stroke-dasharray="30 70"/></svg> Saving...';
+    btn.disabled = true;
+    try {
+      const noteBody = '<h1>' + s.title + '</h1>' +
+        '<p><b>Score:</b> ' + s.totalScore + '/15 (Debate: ' + s.scores.convo + ' | Gov: ' + s.scores.gov + ' | Impact: ' + s.scores.impact + ')</p>' +
+        '<p><b>Category:</b> ' + s.tag + '</p><p>' + s.summary + '</p>' +
+        '<h2>Key Points</h2><ul>' + s.keyPoints.map(p => '<li>' + p + '</li>').join('') + '</ul>' +
+        '<h2>Blog Angle</h2><p>' + s.blogAngle + '</p>' +
+        '<p><b>Source:</b> <a href="' + s.sourceUrl + '">' + s.source + '</a></p>';
+      const escaped = noteBody.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/'/g, "'\\''");
+      const escapedTitle = s.title.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/'/g, "'\\''");
+      await window.cowork.callMcpTool('mcp__Desktop_Commander__start_process', {
+        command: "osascript -e 'tell application \"Notes\"\nset targetFolder to folder \"News Ideas\"\nmake new note at targetFolder with properties {name:\"" + escapedTitle + "\", body:\"" + escaped + "\"}\nend tell'",
+        timeout_ms: 10000
+      });
+      btn.classList.add('saved');
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Saved';
+      showToast('Saved to Apple Notes!');
+      return;
+    } catch (err) { btn.disabled = false; console.error(err); }
+  }
+
+  try {
+    await navigator.clipboard.writeText(noteText);
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Copied!';
+    showToast('Copied — paste into Notes');
+    setTimeout(() => { btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Save to Notes'; }, 3000);
+  } catch (e) { showToast('Could not copy'); }
+}
+
+// Share
+async function shareStory(id) {
+  const s = stories.find(x => x.id === id);
+  if (!s) return;
+  const text = s.title + ' (' + s.totalScore + '/15)\n\n' + s.summary + '\n\nBlog angle: ' + s.blogAngle + '\n\n' + s.sourceUrl;
+  if (navigator.share) {
+    try { await navigator.share({ title: s.title, text }); } catch (e) {}
+  } else {
+    try { await navigator.clipboard.writeText(text); showToast('Copied!'); } catch (e) { showToast('Could not copy'); }
+  }
+}
+
+renderStories();
+</script>
+</body>
+</html>
