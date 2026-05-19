@@ -119,7 +119,7 @@ Return ONLY a JSON array of objects with this exact structure (no markdown, no c
 Sort by total score descending. Aim for 3-6 stories scoring 12+/15."""
 
     response = client.messages.create(
-        model="claude-sonnet-4-20250514",
+        model="claude-sonnet-4-6",
         max_tokens=8000,
         messages=[{"role": "user", "content": prompt}]
     )
