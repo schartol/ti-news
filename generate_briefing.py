@@ -290,6 +290,16 @@ body {{
 .action-btn svg {{ width: 15px; height: 15px; flex-shrink: 0; }}
 .share-btn:hover, .share-btn:active {{ border-color: var(--tag-company); color: var(--tag-company); background: var(--tag-company-bg); }}
 .top-pick-label {{ font-size: 10px; font-weight: 700; color: var(--score-high); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }}
+.new-badge {{ display: inline-block; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 2px 7px; border-radius: 4px; background: #EF4444; color: white; margin-left: 6px; vertical-align: middle; animation: pulse 2s ease-in-out 3; }}
+@keyframes pulse {{ 0%, 100% {{ opacity: 1; }} 50% {{ opacity: 0.6; }} }}
+.story-card.read {{ opacity: 0.55; }}
+.story-card.read:hover, .story-card.read:active {{ opacity: 0.85; }}
+.read-btn {{ cursor: pointer; }}
+.read-btn.is-read svg {{ stroke: var(--success); }}
+.new-count {{ background: #EF4444; color: white; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 10px; margin-left: 4px; }}
+.mark-all-row {{ display: flex; justify-content: flex-end; margin-bottom: 8px; }}
+.mark-all-btn {{ font-size: 11px; color: var(--accent); background: none; border: none; cursor: pointer; padding: 4px 8px; -webkit-tap-highlight-color: transparent; }}
+.mark-all-btn:hover {{ text-decoration: underline; }}
 .toast {{ position: fixed; bottom: max(20px, env(safe-area-inset-bottom, 20px)); left: 50%; transform: translateX(-50%) translateY(100px); background: var(--text); color: white; padding: 12px 24px; border-radius: 10px; font-size: 14px; z-index: 100; transition: transform 0.3s ease; white-space: nowrap; max-width: 90vw; }}
 .toast.show {{ transform: translateX(-50%) translateY(0); }}
 @keyframes spin {{ from {{ transform: rotate(0deg); }} to {{ transform: rotate(360deg); }} }}
@@ -313,6 +323,7 @@ body {{
   </div>
   <div class="filters" id="filters">
     <button class="filter-btn active" data-cat="all">All ({story_count})</button>
+    <button class="filter-btn" data-cat="new">New <span id="newFilterCount" class="new-count">{story_count}</span></button>
     <button class="filter-btn" data-cat="gov-us">US Gov</button>
     <button class="filter-btn" data-cat="eu">EU</button>
     <button class="filter-btn" data-cat="defense">Defense</button>
@@ -327,12 +338,51 @@ body {{
   <span><span class="legend-dot legend-mid"></span> Strong (8-11)</span>
   <span><span class="legend-dot legend-low"></span> Worth watching (5-7)</span>
 </div>
+<div class="mark-all-row"><button class="mark-all-btn" id="markAllBtn" onclick="markAllRead()">Mark all as read</button></div>
 <div class="stories" id="stories"></div>
 <div class="toast" id="toast"></div>
 <script>
 const stories = {stories_json};
 stories.forEach(s => {{ s.totalScore = s.scores.convo + s.scores.gov + s.scores.impact; }});
 let currentFilter = 'all', currentSort = 'score';
+
+// --- Read/Unread tracking via localStorage ---
+const STORAGE_KEY = 'ti-news-read';
+function getReadSet() {{ try {{ return new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')); }} catch(e) {{ return new Set(); }} }}
+function saveReadSet(s) {{ localStorage.setItem(STORAGE_KEY, JSON.stringify([...s])); }}
+let readSet = getReadSet();
+// Clean old entries not in current stories (keep storage small)
+const currentUrls = new Set(stories.map(s => s.sourceUrl));
+readSet = new Set([...readSet].filter(u => currentUrls.has(u)));
+saveReadSet(readSet);
+
+function isRead(s) {{ return readSet.has(s.sourceUrl); }}
+function markRead(id) {{
+  const s = stories.find(x => x.id === id); if (!s) return;
+  readSet.add(s.sourceUrl);
+  saveReadSet(readSet);
+  renderStories();
+  updateNewCount();
+}}
+function markAllRead() {{
+  stories.forEach(s => readSet.add(s.sourceUrl));
+  saveReadSet(readSet);
+  renderStories();
+  updateNewCount();
+  showToast('All stories marked as read');
+}}
+function getNewCount() {{ return stories.filter(s => !isRead(s)).length; }}
+function updateNewCount() {{
+  const n = getNewCount();
+  const badge = document.getElementById('newCount');
+  if (badge) badge.textContent = n;
+  const nb = document.getElementById('newFilterCount');
+  if (nb) nb.textContent = n;
+  // Hide mark-all if none new
+  const mab = document.getElementById('markAllBtn');
+  if (mab) mab.style.display = n > 0 ? '' : 'none';
+}}
+
 function getScoreClass(t) {{ return t >= 12 ? 'score-high' : t >= 8 ? 'score-mid' : 'score-low'; }}
 function sortStories(list, k) {{
   return [...list].sort((a, b) => {{
@@ -347,20 +397,28 @@ function sortStories(list, k) {{
 function renderDots(v) {{ return Array.from({{length: 5}}, (_, i) => '<span class="score-dot ' + (i < v ? 'filled' : '') + '"></span>').join(''); }}
 function renderStories() {{
   const c = document.getElementById('stories');
-  let f = currentFilter === 'all' ? stories : stories.filter(s => s.category === currentFilter);
+  let f = currentFilter === 'new' ? stories.filter(s => !isRead(s)) :
+          currentFilter === 'all' ? stories : stories.filter(s => s.category === currentFilter);
   f = sortStories(f, currentSort);
   c.innerHTML = f.map(s => {{
-    const sc = getScoreClass(s.totalScore), isTop = s.totalScore >= 12;
-    return '<div class="story-card ' + (isTop ? 'top-pick' : '') + '">' +
-      (isTop ? '<div class="top-pick-label">Top Pick for the Blog</div>' : '') +
-      '<div class="story-top"><div class="story-top-left"><span class="story-tag ' + s.tagClass + '">' + s.tag + '</span></div><div class="score-badge ' + sc + '">' + s.totalScore + '/15</div></div>' +
+    const sc = getScoreClass(s.totalScore), isTop = s.totalScore >= 12, read = isRead(s);
+    const newBadge = !read ? '<span class="new-badge">New</span>' : '';
+    const readClass = read ? ' read' : '';
+    const readIcon = read ?
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Read' :
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg> Mark read';
+    return '<div class="story-card' + readClass + (isTop && !read ? ' top-pick' : '') + '">' +
+      (isTop && !read ? '<div class="top-pick-label">Top Pick for the Blog</div>' : '') +
+      '<div class="story-top"><div class="story-top-left"><span class="story-tag ' + s.tagClass + '">' + s.tag + '</span>' + newBadge + '</div><div class="score-badge ' + sc + '">' + s.totalScore + '/15</div></div>' +
       '<div class="score-breakdown"><div class="score-item">Debate <div class="score-dots">' + renderDots(s.scores.convo) + '</div></div><div class="score-item">Gov <div class="score-dots">' + renderDots(s.scores.gov) + '</div></div><div class="score-item">Impact <div class="score-dots">' + renderDots(s.scores.impact) + '</div></div></div>' +
       '<div class="story-title">' + s.title + '</div><div class="story-summary">' + s.summary + '</div>' +
       '<button class="expand-toggle" onclick="toggleDetails(this,' + s.id + ')">Show details & blog angle</button>' +
       '<div class="details-expanded" id="details-' + s.id + '"><ul class="key-points">' + s.keyPoints.map(p => '<li>' + p + '</li>').join('') + '</ul>' +
       '<div class="blog-angle"><div class="blog-angle-label">Blog Angle</div><div class="blog-angle-text">' + s.blogAngle + '</div></div></div>' +
       '<div class="story-source">Source: <a href="' + s.sourceUrl + '" target="_blank" rel="noopener">' + s.source + '</a></div>' +
-      '<div class="action-row"><button class="action-btn" onclick="saveToNotes(' + s.id + ',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Save to Notes</button>' +
+      '<div class="action-row">' +
+      '<button class="action-btn read-btn' + (read ? ' is-read' : '') + '" onclick="markRead(' + s.id + ')">' + readIcon + '</button>' +
+      '<button class="action-btn" onclick="saveToNotes(' + s.id + ',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Save to Notes</button>' +
       '<button class="action-btn share-btn" onclick="shareStory(' + s.id + ')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> Share</button></div></div>';
   }}).join('');
 }}
@@ -370,6 +428,7 @@ document.querySelector('.sort-row').addEventListener('click', function(e) {{ if 
 function showToast(m) {{ const t = document.getElementById('toast'); t.textContent = m; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3000); }}
 async function saveToNotes(id, btn) {{
   const s = stories.find(x => x.id === id); if (!s) return;
+  markRead(id); // auto-mark as read when saving
   const t = [s.title,'','Score: '+s.totalScore+'/15 (Debate: '+s.scores.convo+' | Gov: '+s.scores.gov+' | Impact: '+s.scores.impact+')','','Category: '+s.tag,'',s.summary,'','KEY POINTS:',...s.keyPoints.map(p=>'\\u2022 '+p),'','BLOG ANGLE:',s.blogAngle,'','Source: '+s.sourceUrl].join('\\n');
   if (navigator.share) {{ try {{ await navigator.share({{title:'TI: '+s.title,text:t}}); btn.classList.add('saved'); btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Shared'; return; }} catch(e) {{ if(e.name==='AbortError') return; }} }}
   if (window.cowork && window.cowork.callMcpTool) {{
@@ -386,10 +445,12 @@ async function saveToNotes(id, btn) {{
 }}
 async function shareStory(id) {{
   const s = stories.find(x => x.id === id); if (!s) return;
+  markRead(id); // auto-mark as read when sharing
   const t = s.title+' ('+s.totalScore+'/15)\\n\\n'+s.summary+'\\n\\nBlog angle: '+s.blogAngle+'\\n\\n'+s.sourceUrl;
   if (navigator.share) {{ try {{ await navigator.share({{title:s.title,text:t}}); }} catch(e) {{}} }} else {{ try {{ await navigator.clipboard.writeText(t); showToast('Copied!'); }} catch(e) {{ showToast('Could not copy'); }} }}
 }}
 renderStories();
+updateNewCount();
 </script>
 </body>
 </html>'''
