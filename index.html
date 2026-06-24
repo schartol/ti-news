@@ -108,7 +108,7 @@ body {
 <body>
 <div class="header">
   <h1>Transatlantic Intelligence</h1>
-  <div class="subtitle">News Briefing &mdash; June 20, 2026</div>
+  <div class="subtitle">News Briefing &mdash; June 24, 2026</div>
 </div>
 <div class="controls">
   <div class="sort-row">
@@ -120,8 +120,8 @@ body {
     <button class="sort-btn" data-sort="category">Category</button>
   </div>
   <div class="filters" id="filters">
-    <button class="filter-btn active" data-cat="all">All (19)</button>
-    <button class="filter-btn" data-cat="new">New <span id="newFilterCount" class="new-count">19</span></button>
+    <button class="filter-btn active" data-cat="all">All (20)</button>
+    <button class="filter-btn" data-cat="new">New <span id="newFilterCount" class="new-count">20</span></button>
     <button class="filter-btn" data-cat="gov-us">US Gov</button>
     <button class="filter-btn" data-cat="eu">EU</button>
     <button class="filter-btn" data-cat="defense">Defense</button>
@@ -143,21 +143,21 @@ body {
 const stories = [
   {
     "id": 1,
-    "category": "policy",
-    "tag": "Policy",
-    "tagClass": "tag-policy",
-    "title": "Anthropic's Model Ban Exposes the Chaos of AI Export Control",
-    "summary": "The Trump administration abruptly ordered Anthropic to block foreign national access to its newest models Fable 5 and Mythos 5, citing national security concerns \u2014 leaving even Anthropic's own employees locked out and sparking a cross-sector backlash. The episode has revealed that existing export control frameworks were never designed for AI models, creating regulatory whiplash with no clear playbook.",
+    "category": "defense",
+    "tag": "Defense & Intel",
+    "tagClass": "tag-defense",
+    "title": "CIA Plans AI 'Coworkers' and Agent Teams \u2014 a Structural Shift, Not a Pilot",
+    "summary": "CIA Deputy Director Michael Ellis revealed the agency recently used AI to generate an intelligence report for the first time, and that employees will eventually manage teams of AI agents rather than just use AI as a tool.",
     "keyPoints": [
-      "The ban required Anthropic to cut off all foreign nationals, including its own staff inside the US, suggesting the legal authority being invoked was blunt and poorly scoped for software",
-      "Cybersecurity researchers signed an open letter calling the move dangerous, arguing the same jailbreaks exist across other models \u2014 raising the question of whether selective bans achieve anything",
-      "TechCrunch analysis argues that 30 years of cyber export control history (from encryption to spyware) shows these restrictions consistently fail to contain technology",
-      "The Verge framed it as 'export rules nobody understands' \u2014 pointing to genuine ambiguity about which legal authority was invoked and what standard triggered the decision",
-      "Industry and academic signatories called on the administration to lift controls, citing international competition and network vulnerability risks"
+      "CIA has already produced an AI-generated intelligence report \u2014 a first for the agency",
+      "Deputy Director frames the shift as employees moving from AI users to AI team managers",
+      "Signals a fundamental reorganization of knowledge work inside the most secretive US agencies",
+      "Raises profound questions about accountability, oversight, and human judgment in high-stakes intelligence",
+      "Mirrors broader 'agentic AI' trend now hitting government institutions across the US"
     ],
-    "blogAngle": "This is the blog post the Anthropic ban deserves \u2014 not a news recap, but a structural question: who actually decides when an AI model is too dangerous to release, and what process governs that decision? From Suzanne's CORAS vantage point in US gov-tech procurement, the chaos here has direct implications: if a commercially available model can be yanked mid-deployment with no warning, what does that mean for government contractors building on top of these models? From her daughter's EU perspective, this is exactly the scenario the AI Act's high-risk classification and conformity assessment process was designed to prevent \u2014 a rushed, opaque national security carve-out with no due process. A post comparing the US 'decision by emergency' model to the EU's ex-ante framework would be genuinely original.",
-    "source": "The Verge",
-    "sourceUrl": "https://www.theverge.com/ai-artificial-intelligence/951703/anthropic-shutdown-export-controls",
+    "blogAngle": "This is less a technology story than an organizational design story. When the CIA says employees will 'run teams of AI agents,' it implies a new job taxonomy, new accountability structures, and new oversight challenges that no procurement contract can fully address. Suzanne's perspective from CORAS on how gov-tech companies are (or aren't) preparing agencies for this managerial transition would be a strong hook. How do you redesign a clearance-holding analyst's role when their primary output is now directing AI rather than producing intelligence directly?",
+    "source": "Defense One",
+    "sourceUrl": "https://www.defenseone.com/technology/2026/04/cia-ai-coworkers-agents/412746/",
     "scores": {
       "convo": 5,
       "gov": 5,
@@ -166,21 +166,21 @@ const stories = [
   },
   {
     "id": 2,
-    "category": "defense",
-    "tag": "Defense & Intel",
-    "tagClass": "tag-defense",
-    "title": "CIA Plans AI 'Coworkers' and Agent Teams \u2014 A Rare Window Into Intelligence Community Adoption",
-    "summary": "CIA Deputy Director Michael Ellis revealed the agency recently used AI to generate an intelligence report for the first time, and described a roadmap where CIA employees will first work alongside AI 'coworkers' and eventually manage teams of AI agents. The disclosure is unusually candid for the intelligence community and signals that agentic AI is moving from experimentation to institutionalization inside the most sensitive parts of the US government.",
+    "category": "gov-us",
+    "tag": "US Gov",
+    "tagClass": "tag-gov-us",
+    "title": "DCSA Says AI Could Cut Security Clearance Vetting from Months to Hours",
+    "summary": "The Defense Counterintelligence and Security Agency is exploring AI to dramatically compress the background investigation process, with officials claiming parts of the vetting pipeline could shrink from months to hours.",
     "keyPoints": [
-      "First confirmed use of AI to generate an intelligence report at the CIA \u2014 a meaningful milestone given the classification and verification stakes involved",
-      "The 'coworker to agent team' framing reflects a specific adoption philosophy: augmentation before autonomy, with humans managing AI rather than just using tools",
-      "Ellis framed advanced AI as bringing the government to a 'reflection point' \u2014 both a risk and an opportunity, with cyber implications front and center",
-      "The intelligence community has historically been slow to adopt commercial technology; this level of public disclosure may itself be a signal of how normalized the conversation has become",
-      "No mention of which models or vendors are involved, raising procurement transparency questions that matter for oversight"
+      "DCSA processes millions of background checks annually \u2014 backlogs have historically caused major national security and workforce bottlenecks",
+      "Official claims AI can reduce specific vetting steps from months to hours \u2014 an extraordinary efficiency claim",
+      "Raises immediate questions about accuracy, bias, and due process in automated adjudication",
+      "Background check reform has stalled for years; AI may be the forcing function that finally moves it",
+      "Has direct implications for government hiring pipelines, contractor workforces, and diversity in national security roles"
     ],
-    "blogAngle": "The CIA's AI coworker announcement is a rare public data point about how the most risk-averse part of the US government is thinking about AI adoption sequencing. A blog post could use this as a lens to examine the 'augmentation first' philosophy \u2014 is it the right model for high-stakes government work? Suzanne's CORAS experience with government customer experience transformation gives her a grounded view of how agencies actually change workflows versus how they describe changing them. Her daughter's ESM context adds an interesting counterpoint: how is the EU's financial stability apparatus thinking about AI in similarly sensitive analytical roles, and is there any equivalent transparency?",
-    "source": "Defense One",
-    "sourceUrl": "https://www.defenseone.com/technology/2026/04/cia-ai-coworkers-agents/412746/",
+    "blogAngle": "The clearance backlog has been a chronic failure of US government talent acquisition for decades. If AI genuinely compresses vetting timelines, it could reshape how agencies hire \u2014 but the risks of automated adjudication affecting someone's career or civil liberties deserve serious scrutiny. Suzanne's CORAS lens on gov-tech implementation realism would ground a post that asks: what does 'months to hours' actually require to be safe, and is government ready to govern that process? A European parallel exists too \u2014 EU institutions face their own vetting and institutional trust challenges as they adopt AI in sensitive roles.",
+    "source": "Nextgov/FCW",
+    "sourceUrl": "https://www.nextgov.com/defense/2026/06/us-counterintelligence-agency-looks-ai-accelerate-background-checks/414218/",
     "scores": {
       "convo": 5,
       "gov": 5,
@@ -189,111 +189,42 @@ const stories = [
   },
   {
     "id": 3,
-    "category": "defense",
-    "tag": "Defense & Intel",
-    "tagClass": "tag-defense",
-    "title": "Ukraine's Drone War Is Rewriting What Autonomous Warfare Means \u2014 and Western Governments Are Watching",
-    "summary": "Uncrewed and autonomous systems have so fundamentally shifted the battlefield in Ukraine that officials are now talking about winning rather than just surviving \u2014 a shift driven as much by institutional willingness to adapt as by the technology itself. The story is becoming a live case study for how quickly autonomous warfare doctrine can evolve under operational pressure.",
+    "category": "gov-us",
+    "tag": "US Gov",
+    "tagClass": "tag-gov-us",
+    "title": "NGA Makes AI Skills a Hiring Prerequisite \u2014 and Is Retraining Existing Staff",
+    "summary": "The National Geospatial-Intelligence Agency is now requiring AI competency from new hires and rolling out retraining programs for current employees, signaling a systemic workforce transformation rather than a one-off upskilling effort.",
     "keyPoints": [
-      "Ukraine's success with autonomous systems is attributed not just to hardware but to organizational agility \u2014 the ability to iterate doctrine faster than the adversary",
-      "Russian numerical and materiel advantages have been significantly offset by Ukrainian willingness to adopt and adapt uncrewed systems at speed",
-      "SOUTHCOM commander Gen. Donovan's parallel comments \u2014 'I don't care about platforms, I care about autonomous warfare' \u2014 suggest US military leadership is internalizing this lesson",
-      "The Pentagon's autonomous warfare budget is set to skyrocket, with DARPA projects focused on self-organizing drones that reduce the human operator burden",
-      "EU member states are watching closely: the war has accelerated European defense investment and autonomous systems procurement debates inside NATO and EU defense frameworks"
+      "NGA is embedding AI skill requirements directly into job descriptions \u2014 a structural hiring shift",
+      "Existing employees are being retrained, suggesting the agency sees this as a workforce-wide transformation",
+      "Geospatial intelligence is a domain where AI has particular leverage \u2014 imagery analysis, pattern recognition, predictive mapping",
+      "Sets a potential template for other intelligence and defense agencies rethinking their talent baseline",
+      "Raises questions about which roles can be retrained vs. which will be eliminated or redefined"
     ],
-    "blogAngle": "Ukraine is functioning as the world's most consequential autonomous warfare laboratory, and the lessons are actively reshaping procurement priorities on both sides of the Atlantic. A post could examine the transatlantic divergence in how this is being absorbed: the US is moving fast toward autonomous warfare budget expansion, while EU defense policy is still navigating the tension between strategic autonomy, NATO commitments, and member state sovereignty over lethal autonomous systems. Suzanne's daughter's EU institutional perspective \u2014 particularly any exposure to European Parliament debates on autonomous weapons during her Schuman traineeship \u2014 could make this a distinctive transatlantic analysis rather than a straight defense piece.",
-    "source": "Defense One",
-    "sourceUrl": "https://www.defenseone.com/technology/2026/06/ukraine-robots-winning/413902/",
+    "blogAngle": "NGA's move is one of the clearest signals yet that AI is shifting from 'tool we use' to 'baseline competency we hire for.' This deserves a comparative post: how are EU institutions \u2014 the European Parliament, ESM, EU agencies \u2014 approaching the same question? Suzanne's daughter's experience at the ESM and European Parliament would make the contrast vivid. Are EU institutions updating job descriptions? Running structured retraining? Or still treating AI as a special project rather than a staff-wide capability requirement?",
+    "source": "Nextgov/FCW",
+    "sourceUrl": "https://www.nextgov.com/people/2026/06/want-join-nga-bring-ai-skills-intel-ops-leader-says/414254/",
     "scores": {
-      "convo": 4,
-      "gov": 4,
-      "impact": 5
+      "convo": 5,
+      "gov": 5,
+      "impact": 4
     }
   },
   {
     "id": 4,
-    "category": "gov-us",
-    "tag": "US Gov",
-    "tagClass": "tag-gov-us",
-    "title": "Americans Are Using AI More \u2014 and Trusting It Less. What That Tension Means for Government",
-    "summary": "A new Pew Research poll finds that 49% of Americans now use AI chatbots at least occasionally \u2014 up from 33% in 2024 \u2014 but 63% think the technology is advancing too fast. The gap between adoption and trust is widening, and it has direct implications for how government agencies can roll out AI-facing services.",
-    "keyPoints": [
-      "ChatGPT usage has doubled since 2023, with 44% of Americans reporting use \u2014 mainstreaming that would have seemed implausible 18 months ago",
-      "The 63% 'too fast' figure is striking precisely because it coexists with high usage \u2014 people are adopting AI while simultaneously feeling uncomfortable with its pace",
-      "This trust gap is particularly consequential for government: agencies deploying AI in benefits, services, or enforcement face a public that is skeptical even as it adapts",
-      "The data doesn't distinguish between consumer AI use and government AI interactions \u2014 a gap worth noting for anyone thinking about citizen-facing AI in public services",
-      "European polling data on AI trust has historically shown even higher skepticism, suggesting the transatlantic divergence in public sentiment may be narrowing but persists"
-    ],
-    "blogAngle": "This Pew data deserves more than a headline \u2014 it's a foundational input for anyone designing government AI services. Suzanne's work in Customer Experience at CORAS makes her an ideal voice to write about what this trust gap means in practice: when you're deploying AI in a government customer journey, you're not just managing a product experience, you're managing public legitimacy. A post could examine how CX practitioners in government should be reading this data \u2014 and whether the EU's more regulated, transparency-forward approach to AI is actually better positioned to close the trust gap than the US's faster-but-laxer model.",
-    "source": "The Verge",
-    "sourceUrl": "https://www.theverge.com/ai-artificial-intelligence/951653/pew-research-ai-chatbot-usage-advancing-too-quickly",
-    "scores": {
-      "convo": 5,
-      "gov": 4,
-      "impact": 4
-    }
-  },
-  {
-    "id": 5,
-    "category": "gov-us",
-    "tag": "US Gov",
-    "tagClass": "tag-gov-us",
-    "title": "Federal CISOs Face a New Security Paradigm as Agentic AI Enters Government Networks",
-    "summary": "As AI agents begin operating autonomously inside federal agencies \u2014 taking actions, not just generating text \u2014 the security model built for static software is breaking down. A commentary in Nextgov outlines three priorities for federal CISOs navigating this shift: building agent-specific security programs, drafting incident playbooks, and running adversarial simulations.",
-    "keyPoints": [
-      "Agentic AI introduces new attack surfaces: an AI agent with access to systems and APIs can cause harm at machine speed if compromised or manipulated",
-      "The call for adversarial simulation (red-teaming AI agents) reflects a maturing security posture \u2014 moving from 'should we deploy this?' to 'how do we harden what we're already deploying?'",
-      "Federal CISOs operate under specific compliance frameworks (FedRAMP, FISMA) that were not designed with autonomous agents in mind \u2014 creating a regulatory gap",
-      "The HHS 'power users' AI solicitation published the same week suggests agencies are already moving toward more advanced AI deployments, making the security question urgent",
-      "EU AI Act's risk-based classification system and mandatory incident reporting for high-risk AI systems offers an interesting parallel framework for comparison"
-    ],
-    "blogAngle": "The shift from AI-as-tool to AI-as-agent is the single biggest security governance challenge in government tech right now, and it's happening faster than policy can keep up. A post could frame this as a procurement and governance question: when agencies like HHS are actively soliciting advanced AI for 'power users,' who is responsible for ensuring the agentic security posture is in place before deployment? Suzanne's CORAS background in government customer experience \u2014 where AI agents might touch case management, benefits processing, or citizen communication \u2014 gives her a practitioner's view. Her daughter's EU vantage adds the regulatory layer: the AI Act's requirements for human oversight of high-risk systems are essentially a mandated answer to the CISO problem, worth examining comparatively.",
-    "source": "Nextgov/FCW",
-    "sourceUrl": "https://www.nextgov.com/artificial-intelligence/2026/06/3-priorities-federal-cisos-agentic-era/414232/",
-    "scores": {
-      "convo": 4,
-      "gov": 5,
-      "impact": 4
-    }
-  },
-  {
-    "id": 6,
-    "category": "gov-us",
-    "tag": "US Gov",
-    "tagClass": "tag-gov-us",
-    "title": "AI Is Now a Hiring Prerequisite at the National Geospatial-Intelligence Agency",
-    "summary": "The NGA's leadership has made AI skills a baseline expectation for new hires \u2014 and is retraining current staff \u2014 marking a shift from AI as a specialized capability to AI as a foundational competency across the intelligence community workforce. This is one of the clearest signals yet that government agencies are moving from AI pilot programs to AI-native workforce models.",
-    "keyPoints": [
-      "NGA is treating AI fluency as a job prerequisite rather than a specialty \u2014 a significant shift in how intelligence agencies define baseline workforce competency",
-      "Current staff are receiving new AI training, suggesting the agency is not waiting for generational workforce turnover to achieve the transformation",
-      "The NGA's mission \u2014 geospatial intelligence \u2014 is inherently data-intensive, making it an early and natural adopter, but the model may be spreading across the IC",
-      "This mirrors a broader pattern in the EU public sector, where digital competency frameworks are being updated to include AI literacy as a baseline civil servant requirement",
-      "The workforce transformation question is arguably more consequential than the technology question: AI adoption in government will be gated by human capacity, not just procurement"
-    ],
-    "blogAngle": "The NGA story is a useful signal of where AI adoption in government is heading \u2014 from 'we have an AI team' to 'everyone needs AI skills.' A post could examine what it actually means to make AI a hiring prerequisite in government: what skills are being tested, how does this interact with civil service hiring rules, and what happens to the existing workforce? Suzanne's CX and gov-tech background gives her real insight into the workforce transformation side. Her daughter's ESM and European Parliament experience adds the EU dimension: how are EU institutions \u2014 which have their own civil service and hiring frameworks \u2014 approaching AI literacy as a baseline competency, and how does that compare to the US intelligence community's top-down mandate?",
-    "source": "Nextgov/FCW",
-    "sourceUrl": "https://www.nextgov.com/people/2026/06/want-join-nga-bring-ai-skills-intel-ops-leader-says/414254/",
-    "scores": {
-      "convo": 4,
-      "gov": 5,
-      "impact": 4
-    }
-  },
-  {
-    "id": 7,
     "category": "defense",
     "tag": "Defense & Intel",
     "tagClass": "tag-defense",
-    "title": "Pentagon Deploys ChatGPT Across Military via GenAI.mil \u2014 A Procurement Milestone Worth Examining",
-    "summary": "OpenAI's ChatGPT is set to debut on GenAI.mil in early July, giving military personnel broad access to a frontier commercial AI model through the Pentagon's Chief Digital AI Office infrastructure. The move represents one of the most visible instances of a US government agency standardizing on a commercial AI product at scale.",
+    "title": "ChatGPT Is Coming to the Pentagon's GenAI.mil Platform",
+    "summary": "OpenAI is partnering with the Pentagon's Chief Digital and AI Office to deploy ChatGPT on GenAI.mil in early July, expanding the range of frontier models available to US military personnel.",
     "keyPoints": [
-      "GenAI.mil is the Pentagon's central platform for delivering AI capabilities to military users \u2014 deploying ChatGPT there means broad organizational reach, not a pilot",
-      "The collaboration with CDAO suggests this is a strategic procurement decision, not an individual contract \u2014 with implications for how the military manages model access and vendor lock-in",
-      "The timing is notable given the Anthropic Fable 5 ban the same week: the Pentagon is simultaneously expanding commercial AI access and demonstrating it can restrict it",
-      "OpenAI hiring a former Trump AI policy official the same week as this announcement raises questions about the revolving door between AI policy and AI procurement",
-      "EU defense institutions have been far more cautious about deploying US commercial AI models at scale, citing data sovereignty and strategic dependency concerns"
+      "GenAI.mil is the Pentagon's centralized AI access platform \u2014 adding ChatGPT gives military users more model choice",
+      "Reflects a deliberate multi-vendor strategy at DoD rather than lock-in to a single AI provider",
+      "OpenAI's growing defense footprint raises governance questions about commercial AI in classified and sensitive contexts",
+      "The July timeline is specific enough to watch for follow-on reporting about actual adoption patterns",
+      "Sets a precedent other NATO militaries \u2014 including EU member states \u2014 will observe closely"
     ],
-    "blogAngle": "The ChatGPT-on-GenAI.mil announcement is easy to read as a product launch, but it's actually a procurement policy story. A post could examine what it means for the US government to standardize on a single commercial frontier model for military use: what are the vendor dependency risks, what oversight mechanisms exist, and how does this compare to the EU's approach of building sovereign AI capacity rather than procuring US commercial models? Suzanne's CORAS work in government procurement gives her a lens on the institutional dynamics; her daughter's ESM and EU Parliament background offers the European counterpoint on strategic AI dependency.",
+    "blogAngle": "The arrival of commercial frontier models on military platforms is moving fast \u2014 but the governance frameworks for their use are lagging. A blog post could examine what the GenAI.mil model actually implies: is it a marketplace, a managed service, or something in between? And how does it compare to how EU defense institutions (EDA, national militaries) are thinking about commercial AI access? Suzanne's gov-tech procurement perspective and her daughter's EU institutional background make this a natural transatlantic framing.",
     "source": "Nextgov/FCW",
     "sourceUrl": "https://www.nextgov.com/defense/2026/06/openais-chatgpt-debut-genaimil-early-july/414229/",
     "scores": {
@@ -303,26 +234,95 @@ const stories = [
     }
   },
   {
+    "id": 5,
+    "category": "gov-us",
+    "tag": "US Gov",
+    "tagClass": "tag-gov-us",
+    "title": "HHS Moves Beyond General AI Toward Power-User Deployments",
+    "summary": "The Department of Health and Human Services is issuing a call for AI capabilities tailored to its 'power users' \u2014 staff who rely on specialized AI features \u2014 signaling a maturation from broad AI access toward differentiated, role-specific deployment.",
+    "keyPoints": [
+      "HHS is distinguishing between general AI users and 'power users' needing advanced, specialized capabilities",
+      "Represents a second-generation procurement approach: not 'give everyone AI' but 'match AI to specific workflows'",
+      "Raises important questions about equity \u2014 who gets access to more powerful tools, and on what basis",
+      "Could signal a broader federal shift toward tiered AI access models rather than one-size-fits-all rollouts",
+      "HHS's scale and mission complexity make it a useful bellwether for how large civilian agencies operationalize AI"
+    ],
+    "blogAngle": "Most government AI procurement has been about access \u2014 getting tools in front of employees. HHS's 'power user' framing suggests agencies are now grappling with a harder question: what do different roles actually need, and how do you design for that? Suzanne's CORAS work in customer experience for government tech is directly relevant here \u2014 designing differentiated AI experiences for different user types is a gov-tech design challenge as much as a procurement one. A post could explore what 'power user' tiers mean for government AI maturity.",
+    "source": "Nextgov/FCW",
+    "sourceUrl": "https://www.nextgov.com/artificial-intelligence/2026/06/hhs-issues-call-ai-support-its-power-users/414253/",
+    "scores": {
+      "convo": 4,
+      "gov": 5,
+      "impact": 4
+    }
+  },
+  {
+    "id": 6,
+    "category": "defense",
+    "tag": "Defense & Intel",
+    "tagClass": "tag-defense",
+    "title": "SOUTHCOM Commander: 'I Don't Care About Platforms. I Care About Autonomous Warfare.'",
+    "summary": "General Frank Donovan, former leader of the Defense Autonomous Warfare Group and now SOUTHCOM commander, frames autonomous systems as the central organizing principle of modern military strategy \u2014 not a supporting technology.",
+    "keyPoints": [
+      "Donovan's framing is striking: platforms (ships, planes) are secondary to autonomous warfare capability",
+      "SOUTHCOM covers Latin America \u2014 an often-overlooked theater for autonomous systems and AI-enabled surveillance",
+      "His background leading the Defense Autonomous Warfare Group gives this unusual institutional weight",
+      "Signals that autonomous warfare doctrine is now being operationalized at combatant command level, not just researched",
+      "Has significant implications for NATO allies and EU defense posture, which are still debating autonomous weapons frameworks"
+    ],
+    "blogAngle": "When a combatant commander says he doesn't care about platforms, it's a doctrinal statement that will reverberate through allied militaries. The EU is still working through its position on autonomous weapons \u2014 the AI Act touches some of this, but defense is largely carved out. A post could explore the growing gap between US military AI doctrine (move fast, operationalize autonomy) and the EU's more cautious posture, and what that means for transatlantic defense coherence. Suzanne's daughter's EU institutional perspective would add texture to how Brussels is processing this.",
+    "source": "Defense One",
+    "sourceUrl": "https://www.defenseone.com/technology/2026/05/q-gen-frank-donovan/413870/",
+    "scores": {
+      "convo": 5,
+      "gov": 4,
+      "impact": 4
+    }
+  },
+  {
+    "id": 7,
+    "category": "defense",
+    "tag": "Defense & Intel",
+    "tagClass": "tag-defense",
+    "title": "Ukraine's Autonomous Systems Are Rewriting the Military AI Adoption Playbook",
+    "summary": "Uncrewed and autonomous systems have fundamentally altered Ukraine's military position, shifting the conversation from survival to potential victory \u2014 and offering the most consequential real-world test of military AI adoption to date.",
+    "keyPoints": [
+      "Ukraine represents the largest live deployment of autonomous and AI-enabled military systems in history",
+      "Autonomous systems have neutralized specific Russian advantages, particularly in manpower and armor",
+      "The pace of Ukrainian adaptation to new autonomous tools has been as important as the tools themselves",
+      "Lessons from Ukraine are actively reshaping procurement and doctrine in NATO member states",
+      "The EU faces pressure to translate these lessons into defense policy, but member state divergence slows response"
+    ],
+    "blogAngle": "Ukraine is the most important ongoing case study in military AI adoption \u2014 and it's happening in Europe. A blog post could examine what European defense institutions are actually learning from Ukraine's experience, and whether the EU's defense AI frameworks are keeping pace with battlefield reality. Suzanne's daughter's perspective from ESM and EU Parliament circles would ground this: is Brussels treating Ukraine as a policy lesson, or is institutional inertia slowing absorption of these insights?",
+    "source": "Defense One",
+    "sourceUrl": "https://www.defenseone.com/technology/2026/06/ukraine-robots-winning/413902/",
+    "scores": {
+      "convo": 5,
+      "gov": 4,
+      "impact": 4
+    }
+  },
+  {
     "id": 8,
     "category": "gov-us",
     "tag": "US Gov",
     "tagClass": "tag-gov-us",
-    "title": "Background Checks in Hours, Not Months: AI Comes to Security Clearance Vetting",
-    "summary": "The Defense Counterintelligence and Security Agency is exploring AI to dramatically compress the security clearance vetting timeline \u2014 from months to hours for parts of the process. The application is high-stakes: clearance backlogs have long been a bottleneck for federal hiring, and AI could unlock capacity while introducing new risks around automated decisions on sensitive personnel matters.",
+    "title": "Federal CISOs Need New Playbooks for Agentic AI \u2014 and Most Don't Have Them",
+    "summary": "A commentary piece argues that agentic AI \u2014 systems that act autonomously in the background \u2014 requires a fundamentally different security posture than traditional software, and that most federal agencies are not yet equipped for it.",
     "keyPoints": [
-      "DCSA handles millions of background investigations annually; even partial AI acceleration could have significant workforce pipeline effects across the federal government",
-      "Compressing vetting timelines from months to hours represents an orders-of-magnitude change \u2014 which raises questions about what is being automated and what safeguards remain",
-      "Personnel security decisions have civil liberties implications; automating any part of this process raises due process and bias concerns that mirror EU debates on AI in high-stakes decisions",
-      "The EU AI Act explicitly categorizes AI used in employment and personnel evaluation as high-risk \u2014 requiring conformity assessments and human oversight that the US framework does not mandate",
-      "This connects to the NGA workforce story: if AI can accelerate the clearance pipeline, it also changes the calculus for how quickly agencies can build AI-skilled workforces"
+      "Agentic AI introduces new attack surfaces: agents can be manipulated through their inputs, not just their code",
+      "Federal CISOs are advised to build dedicated security programs, incident playbooks, and adversarial simulations",
+      "Most existing federal cybersecurity frameworks were not designed with autonomous AI agents in mind",
+      "The gap between AI deployment speed and security framework development is growing, not shrinking",
+      "CISA and OMB guidance has not yet fully caught up to the agentic AI threat model"
     ],
-    "blogAngle": "AI-assisted background checks are a perfect case study in the tension between efficiency and rights in government AI. A post could examine this through a transatlantic governance lens: the US framing is efficiency and national security capacity; the EU framing would immediately flag this as high-risk AI requiring mandatory human oversight and conformity assessment. Suzanne's gov-tech CX background gives her insight into how these decisions play out in practice for federal employees navigating the clearance process. Her daughter's EU institutional experience adds the regulatory contrast \u2014 this is precisely the kind of use case the AI Act was designed to govern, and the US has no equivalent framework.",
+    "blogAngle": "As agencies like HHS, NGA, and DoD accelerate AI deployment, the security governance layer is lagging dangerously. A post could examine what 'security for agentic AI' actually requires in government contexts \u2014 and whether existing frameworks like FedRAMP and FISMA are adequate for a world where AI agents take actions on behalf of agencies. Suzanne's CORAS background in gov-tech implementation makes this practical rather than theoretical. The EU parallel \u2014 how is the AI Act's risk framework being applied to agentic systems? \u2014 adds the transatlantic dimension.",
     "source": "Nextgov/FCW",
-    "sourceUrl": "https://www.nextgov.com/defense/2026/06/us-counterintelligence-agency-looks-ai-accelerate-background-checks/414218/",
+    "sourceUrl": "https://www.nextgov.com/artificial-intelligence/2026/06/3-priorities-federal-cisos-agentic-era/414232/",
     "scores": {
-      "convo": 5,
+      "convo": 4,
       "gov": 5,
-      "impact": 3
+      "impact": 4
     }
   },
   {
@@ -330,68 +330,68 @@ const stories = [
     "category": "gov-us",
     "tag": "US Gov",
     "tagClass": "tag-gov-us",
-    "title": "HHS Solicits Advanced AI for 'Power Users' \u2014 A Signal of Where Federal AI Adoption Is Heading",
-    "summary": "The Department of Health and Human Services has issued a call for advanced AI capabilities specifically designed to serve staff who rely on specialized AI features \u2014 moving beyond general-purpose tools toward differentiated, role-specific AI deployments. The solicitation reveals a maturing procurement posture where agencies are thinking about AI in terms of user segmentation, not just technology acquisition.",
+    "title": "FAA Awards AI Contract as Backbone of Air Traffic Control Modernization",
+    "summary": "The FAA has contracted Air Space Intelligence to provide AI infrastructure described as 'the new technological backbone' of a modernized Air Traffic Control System Command Center, marking a significant milestone in one of government's most complex and safety-critical modernization efforts.",
     "keyPoints": [
-      "HHS's framing of 'power users' suggests agencies are moving past the 'give everyone ChatGPT access' phase toward thinking about differentiated AI for specialized roles",
-      "Health and human services data is among the most sensitive in government \u2014 deploying advanced AI here raises data governance, HIPAA, and patient privacy questions",
-      "The solicitation model (issuing a call rather than a direct award) suggests HHS is still exploring the market \u2014 useful intelligence about where the agency is in its adoption journey",
-      "This mirrors EU health agencies' cautious approach to AI procurement, where data protection frameworks (GDPR, the AI Act's high-risk health AI provisions) shape what can be deployed",
-      "The 'power user' segmentation approach is something Suzanne's CORAS work in government CX would recognize \u2014 it's essentially a user research insight being applied to AI procurement"
+      "Air traffic control modernization has been stalled for decades \u2014 AI is now being positioned as the path forward",
+      "The 'technological backbone' framing suggests this is infrastructure-level, not a point solution",
+      "ATC is one of the highest-stakes domains for AI deployment \u2014 safety failures have immediate life-or-death consequences",
+      "The contract raises questions about certification, validation, and human oversight requirements specific to aviation",
+      "European counterpart EUROCONTROL is pursuing parallel digitization \u2014 a natural transatlantic comparison point"
     ],
-    "blogAngle": "The HHS power user solicitation is a small story with big implications for how government AI procurement is maturing. A post could use this as a lens on the evolution from 'AI as a single enterprise tool' to 'AI as a differentiated service layer' \u2014 and ask whether government procurement frameworks are actually ready for that complexity. Suzanne's CX background at CORAS makes her well-placed to examine the user research and persona-based thinking embedded in this solicitation. The EU comparison is worth drawing: EU health agencies are navigating similar differentiation questions but under much tighter AI Act constraints for health-related AI, creating a natural transatlantic contrast.",
+    "blogAngle": "The FAA's decades-long ATC modernization failure is legendary in gov-tech circles. A post could examine what makes this AI contract different \u2014 or the same \u2014 as previous failed modernization attempts. Suzanne's gov-tech experience at CORAS is directly relevant: what does successful AI implementation in a safety-critical, heavily regulated government domain actually require? And how does the FAA's approach compare to EUROCONTROL's? This is a durable story about AI in high-stakes government infrastructure, not just a contract announcement.",
     "source": "Nextgov/FCW",
-    "sourceUrl": "https://www.nextgov.com/artificial-intelligence/2026/06/hhs-issues-call-ai-support-its-power-users/414253/",
+    "sourceUrl": "https://www.nextgov.com/acquisition/2026/06/faa-awards-software-and-ai-contract-part-air-traffic-control-modernization/414354/",
     "scores": {
-      "convo": 3,
+      "convo": 4,
       "gov": 5,
       "impact": 4
     }
   },
   {
     "id": 10,
-    "category": "defense",
-    "tag": "Defense & Intel",
-    "tagClass": "tag-defense",
-    "title": "SOUTHCOM Commander: 'I Don't Care About Platforms. I Care About Autonomous Warfare.'",
-    "summary": "General Frank Donovan, former head of the Defense Autonomous Warfare Group and now SOUTHCOM commander, has articulated a doctrine-first view of autonomous systems that prioritizes warfare concepts over specific platforms. The framing reflects a broader shift in how senior US military leadership is conceptualizing AI's role \u2014 and has significant implications for how defense AI spending will be shaped.",
+    "category": "company",
+    "tag": "AI Companies",
+    "tagClass": "tag-company",
+    "title": "The Agentic AI Loop: What 'Always-On' Autonomous Agents Mean for Government",
+    "summary": "A new architectural pattern called 'the loop' enables swarms of AI agents to operate continuously in the background without human triggers \u2014 a capability shift that has profound implications for how government agencies will need to govern AI systems.",
     "keyPoints": [
-      "Donovan's platform-agnostic framing signals that US military AI strategy is moving from procurement-driven to doctrine-driven \u2014 a meaningful institutional shift",
-      "As former head of the Defense Autonomous Warfare Group, Donovan has unusual credibility to define what 'autonomous warfare' means operationally, not just technically",
-      "The SOUTHCOM context matters: autonomous warfare doctrine is being developed not just for great-power competition but for the full range of regional security challenges",
-      "The Pentagon's autonomous warfare budget expansion (covered separately in Breaking Defense) is the fiscal expression of this doctrinal shift",
-      "EU member states have no equivalent institutional voice articulating autonomous warfare doctrine \u2014 creating a transatlantic gap in how the concept is being developed and legitimized"
+      "Loop-based agentic AI runs continuously and autonomously, fundamentally changing the human-AI interaction model",
+      "Unlike chatbots or copilots, loop agents take actions persistently \u2014 raising new accountability questions",
+      "Government procurement frameworks currently have no category for 'always-on autonomous AI systems'",
+      "The EU AI Act's risk classification system was not designed with persistent agentic loops in mind",
+      "This architectural shift could arrive in government faster than governance frameworks can adapt"
     ],
-    "blogAngle": "Donovan's quote is a doctrine-defining moment that deserves more than a news brief. A post could examine what 'autonomous warfare' as a framing \u2014 rather than 'autonomous weapons' or 'AI-enabled defense' \u2014 means for how governments on both sides of the Atlantic will structure their defense AI investments. The EU's approach is almost entirely platform and regulation focused (the debate is about lethal autonomous weapons systems and their prohibition), while the US is developing an operational doctrine first. Suzanne's daughter's European Parliament background may include exposure to EU debates on autonomous weapons \u2014 making this a genuinely personal transatlantic lens.",
-    "source": "Defense One",
-    "sourceUrl": "https://www.defenseone.com/technology/2026/05/q-gen-frank-donovan/413870/",
+    "blogAngle": "Most government AI governance assumes a human initiates an AI interaction. Loop-based agentic AI breaks that assumption entirely. A post could examine what this means for oversight, audit trails, and accountability in government \u2014 and whether existing frameworks on both sides of the Atlantic are equipped. Suzanne's daughter's perspective from ESM and EU Parliament, where AI governance discussions are active, would ground the EU side. This is the kind of structural shift the blog exists to cover before it becomes a crisis.",
+    "source": "TechCrunch",
+    "sourceUrl": "https://techcrunch.com/2026/06/22/the-ai-world-is-getting-loopy/",
     "scores": {
-      "convo": 4,
+      "convo": 5,
       "gov": 4,
       "impact": 4
     }
   },
   {
     "id": 11,
-    "category": "policy",
-    "tag": "Policy",
-    "tagClass": "tag-policy",
-    "title": "Tech Legislation Roundup: Biodata, Quantum Security, and a Proposal to Give Americans an AI Dividend",
-    "summary": "A cluster of new US tech bills covers biological data infrastructure, quantum computing's national security implications, and \u2014 most strikingly \u2014 a proposal to give the American public an equity stake in the largest AI companies. The AI dividend proposal in particular represents a novel policy approach to the concentration of AI economic power.",
+    "category": "defense",
+    "tag": "Defense & Intel",
+    "tagClass": "tag-defense",
+    "title": "Pentagon Wants Self-Organizing Drone Swarms to Reduce the Human Overhead of Autonomous War",
+    "summary": "New DARPA projects aim to make uncrewed weapons systems more autonomous and self-coordinating, directly addressing the paradox that today's autonomous warfare requires more human operators than it saves.",
     "keyPoints": [
-      "The AI public equity stake proposal is the most structurally interesting: it would effectively socialize some of the economic returns from AI development \u2014 a concept with no US precedent but echoes in EU digital sovereignty debates",
-      "The quantum computing national security evaluation bill reflects growing recognition that cryptographic infrastructure underpinning government systems may need redesign",
-      "Biodata database legislation connects to the broader AI training data question \u2014 who controls foundational scientific data matters for who leads in biotech AI",
-      "None of these bills are likely to pass quickly, but they signal where the legislative imagination is heading \u2014 useful for forecasting the medium-term policy environment",
-      "The EU's approach to AI economic governance (via the AI Act, the Data Act, and discussions of AI liability) offers a different model for addressing the same concentration-of-power concern"
+      "Current autonomous weapons systems require substantial human support \u2014 the labor savings are not yet materializing",
+      "DARPA is investing in self-organizing drone swarms that reduce the operator-to-system ratio",
+      "The autonomous warfare budget is projected to skyrocket, making this a major procurement and policy area",
+      "Self-organizing systems raise new questions about meaningful human control \u2014 a live debate in international law",
+      "EU member states and NATO allies will face pressure to match or respond to this capability development"
     ],
-    "blogAngle": "The AI public equity proposal is the kind of legislative idea that sounds radical but reflects a real structural concern: the economic returns from AI are concentrating in a handful of companies, and the public \u2014 whose data and whose government contracts helped build these systems \u2014 isn't sharing in it. A post could examine this alongside EU approaches to AI economic governance, asking whether either side of the Atlantic has a credible answer to the AI wealth distribution question. This is a topic where Suzanne's industry vantage (working in gov-tech) and her daughter's EU institutional perspective create genuine productive tension.",
-    "source": "Nextgov/FCW",
-    "sourceUrl": "https://www.nextgov.com/policy/2026/06/tech-bills-week-managing-biological-data-evaluating-quantum-computings-impact-national-security-and-more/414280/",
+    "blogAngle": "The revelation that autonomous weapons currently require *more* people is a useful corrective to AI hype \u2014 and DARPA's response (more autonomy) raises its own governance challenges. A post could examine the 'meaningful human control' question from both a US military doctrine angle and an EU policy angle, where the debate is more explicitly tied to international humanitarian law. Suzanne's daughter's EU Parliament background is particularly relevant here \u2014 the Parliament has been one of the more active voices on autonomous weapons regulation.",
+    "source": "Defense One",
+    "sourceUrl": "https://www.defenseone.com/technology/2026/05/pentagon-drones-autonomous-warfare/413323/",
     "scores": {
       "convo": 5,
       "gov": 4,
-      "impact": 3
+      "impact": 4
     }
   },
   {
@@ -399,66 +399,66 @@ const stories = [
     "category": "defense",
     "tag": "Defense & Intel",
     "tagClass": "tag-defense",
-    "title": "Air Force Picks Anduril and General Atomics to Build AI Drone Wingmen",
-    "summary": "The US Air Force has selected General Atomics and Anduril to build the first Collaborative Combat Aircraft \u2014 autonomous drone wingmen for crewed fighters \u2014 with Anduril, Shield AI, and Collins developing the autonomy system. The decision marks the transition of autonomous combat aircraft from DARPA concept to major defense acquisition program.",
+    "title": "CIA Official: Advanced AI Models Are a 'Reflection Point' for Government",
+    "summary": "A CIA official acknowledged at a public forum that next-generation AI models represent a genuine inflection point for federal government \u2014 bringing both significant risk and transformative opportunity that agencies are not yet fully equipped to navigate.",
     "keyPoints": [
-      "CCA moves autonomous combat aircraft from research to acquisition \u2014 a threshold moment for how seriously the US military is institutionalizing AI-driven autonomous systems",
-      "Anduril's selection (alongside Shield AI) signals that non-traditional defense contractors with AI-native architectures are now winning major platform competitions against legacy primes",
-      "The autonomy system development being separated from the airframe is itself a structural signal: software and AI are being treated as the primary value driver",
-      "European NATO allies will need to decide how to respond \u2014 interoperability with AI wingmen raises doctrine, data-sharing, and sovereignty questions for EU air forces",
-      "The EU has no equivalent program; the closest analogs are Franco-German Future Combat Air System discussions, which remain far earlier in development"
+      "Senior intelligence official using 'reflection point' language suggests internal seriousness about AI's pace of change",
+      "The framing of simultaneous risk and opportunity is more nuanced than typical government AI messaging",
+      "Intelligence community officials are increasingly speaking publicly about AI adoption \u2014 a shift in itself",
+      "Raises questions about whether existing governance structures can keep pace with model capability improvements",
+      "Connects to broader pattern of government 'catching up' to commercial AI development cycles"
     ],
-    "blogAngle": "The CCA selection is a defense procurement story, but it's really a story about the institutionalization of autonomous warfare \u2014 and the widening transatlantic gap in autonomous military capability. A post could examine what it means for the US to be operationalizing AI drone wingmen while EU member states are still debating the governance frameworks for autonomous weapons. Suzanne's daughter's European Parliament background \u2014 where the autonomous weapons debate has been active \u2014 gives this a personal dimension. The deeper question for the blog: is the EU's caution on autonomous systems a principled governance position or a strategic liability?",
-    "source": "Breaking Defense",
-    "sourceUrl": "https://breakingdefense.com/2026/06/air-force-cca-drone-wingman-anduril-general-atomics-selection/",
+    "blogAngle": "When a CIA official publicly says AI is a 'reflection point,' it's worth asking: reflection toward what? A post could examine what institutional reflection actually looks like inside government \u2014 and whether it translates into structural change or stays at the level of rhetoric. Suzanne's CORAS perspective on what agencies are actually doing vs. saying would ground this usefully. The EU dimension: are European institutions at a similar reflection point, or are they further behind or ahead in different ways?",
+    "source": "Defense One",
+    "sourceUrl": "https://www.defenseone.com/technology/2026/05/advanced-ai-models-bring-government-reflection-point-cia-official-says/413623/",
     "scores": {
       "convo": 4,
+      "gov": 5,
+      "impact": 3
+    }
+  },
+  {
+    "id": 13,
+    "category": "policy",
+    "tag": "Policy",
+    "tagClass": "tag-policy",
+    "title": "Corporate AI Super PACs Spent $27M on a Local New York Election",
+    "summary": "AI industry-backed super PACs poured $27 million into a single New York congressional district race, a striking demonstration of the sector's willingness to use political spending to shape AI governance at the legislative level.",
+    "keyPoints": [
+      "The scale of spending \u2014 $27M on a local race \u2014 is extraordinary and signals a strategic, not incidental, political campaign",
+      "AI companies are actively investing in legislative outcomes, not just lobbying \u2014 a qualitative shift in influence strategy",
+      "The target district and candidate choices reveal something about which policy levers the industry considers most important",
+      "This pattern, if repeated, could reshape who makes AI policy in Congress over the next cycle",
+      "EU institutions face different influence dynamics \u2014 corporate lobbying in Brussels operates under different rules, but pressure is analogous"
+    ],
+    "blogAngle": "AI companies are not just building products \u2014 they are now actively shaping the political environment in which their products will be governed. A post could examine what this means for the integrity of AI policymaking in the US, and contrast it with how EU institutions are (or aren't) insulated from equivalent commercial pressure. Suzanne's daughter's European Parliament experience would add real texture: how does the EP's relationship with AI industry lobbying compare to what's happening in US congressional races?",
+    "source": "The Verge",
+    "sourceUrl": "https://www.theverge.com/policy/954970/ai-super-pacs-alex-bores-new-york-12th-district",
+    "scores": {
+      "convo": 5,
       "gov": 4,
       "impact": 4
     }
   },
   {
-    "id": 13,
+    "id": 14,
     "category": "defense",
     "tag": "Defense & Intel",
     "tagClass": "tag-defense",
     "title": "Special Operations Forces Want AI That Fits in a Backpack",
-    "summary": "US special operators are pushing for AI agents small enough to carry on missions and simple enough to use under pressure \u2014 revealing how the tactical edge of autonomous AI adoption is as much about size, weight, and interface as it is about capability. The requirements illuminate how AI adoption in operational environments differs fundamentally from office or enterprise contexts.",
+    "summary": "US special operations forces are pushing for AI tools that are small, reliable, and operable in austere environments \u2014 a set of requirements that reveals the gap between enterprise AI development and genuine field deployment.",
     "keyPoints": [
-      "Special operators' AI requirements \u2014 small, rugged, low-power, intuitive under stress \u2014 are shaping a distinct segment of the AI hardware and software market",
-      "AI agents coming to special operations missions represents a different adoption challenge than enterprise AI: latency, connectivity, and reliability constraints are extreme",
-      "The 'if it fits in the pack' constraint is a useful metaphor for a broader truth about government AI adoption: the real constraints are operational, not just technical",
-      "This connects to the broader autonomous warfare doctrine story \u2014 SOCOM has historically been an early adopter of new military technology, so its AI requirements signal where the wider force will go",
-      "EU special forces equivalents face similar tactical AI challenges but operate under different rules of engagement and data governance requirements"
+      "SOF requirements \u2014 low power, small form factor, offline capable \u2014 are radically different from cloud-dependent commercial AI",
+      "AI agents are being designed for special operations missions, raising questions about autonomy at the edge",
+      "The 'fits in the pack' constraint is a useful forcing function: what does AI adoption look like under real-world operational limits?",
+      "Procurement for edge AI in classified environments is entirely different from standard government AI acquisition",
+      "European special operations forces face similar constraints but lack the same R&D investment pipeline"
     ],
-    "blogAngle": "The special operations AI story is a useful counterpoint to the enterprise AI conversation \u2014 it asks what AI adoption looks like when the operating environment is the opposite of a comfortable office. A post could use this as a lens to examine the hidden constraints on government AI adoption more broadly: the real barriers to deployment are often operational fit, not policy or technology. Suzanne's CX background at CORAS is directly relevant \u2014 designing AI for extreme user contexts is a UX and human factors challenge as much as an engineering one. The post could ask: what can government civilian AI programs learn from the tactical edge about designing for real-world constraints?",
+    "blogAngle": "The special operations AI requirements story is really a story about the limits of current AI for real government deployment \u2014 not in a data center, but in the field. A post could use this as a lens to examine the broader gap between AI as procured (cloud-based, always-connected) and AI as actually needed across government contexts. Suzanne's gov-tech implementation perspective would ground this well. The edge AI challenge is also relevant for EU agencies operating in crisis or field contexts.",
     "source": "Defense One",
     "sourceUrl": "https://www.defenseone.com/technology/2026/05/smaller-easier-smarter-what-special-operations-forces-need-ai-now/413748/",
     "scores": {
-      "convo": 3,
-      "gov": 4,
-      "impact": 3
-    }
-  },
-  {
-    "id": 14,
-    "category": "gov-us",
-    "tag": "US Gov",
-    "tagClass": "tag-gov-us",
-    "title": "SBA Pairs with Perplexity on $25M Small Business AI Accelerator \u2014 Government as AI Adoption Intermediary",
-    "summary": "The Small Business Administration has partnered with AI search company Perplexity to launch a $25 million Main Street AI Accelerator aimed at helping small businesses adopt AI tools. The program positions the federal government as an active intermediary in AI diffusion \u2014 not just a regulator or user, but a subsidizer of private sector adoption.",
-    "keyPoints": [
-      "The SBA-Perplexity partnership is unusual: a specific commercial AI vendor is being elevated as the platform for a federal small business program \u2014 raising questions about selection criteria",
-      "The 'Main Street AI' framing is explicitly about the US-China AI race narrative \u2014 the administration is linking small business AI adoption to geopolitical competition",
-      "Government-as-AI-diffusion-intermediary is an underexamined policy role: the EU has been doing this through Digital Innovation Hubs and Horizon Europe, but the US approach here is more direct and vendor-specific",
-      "Perplexity's selection (rather than OpenAI, Google, or Microsoft) is interesting \u2014 the company is smaller and more search-focused, which may reflect specific SBA use case thinking or vendor lobbying dynamics",
-      "The $25M scale is modest relative to the ambition \u2014 it's as much a signal and branding exercise as a substantive program"
-    ],
-    "blogAngle": "The SBA-Perplexity program is worth examining not for the dollar amount but for what it reveals about the US government's emerging theory of AI diffusion: partner with specific commercial vendors to reach SMBs. A post could compare this to the EU's more institutional approach \u2014 Digital Innovation Hubs, AI on Demand platform, public-private partnerships through Horizon Europe \u2014 and ask which model is more likely to actually move the needle on small business AI adoption. Suzanne's CORAS background in government-facing tech gives her insight into how these programs actually work in practice versus how they're announced.",
-    "source": "Nextgov/FCW",
-    "sourceUrl": "https://www.nextgov.com/acquisition/2026/06/sba-partners-perplexity-launch-25m-main-street-ai-accelerator/414198/",
-    "scores": {
-      "convo": 3,
+      "convo": 4,
       "gov": 4,
       "impact": 3
     }
@@ -468,18 +468,18 @@ const stories = [
     "category": "policy",
     "tag": "Policy",
     "tagClass": "tag-policy",
-    "title": "Encryption, Spyware, Mythos: Why AI Export Controls Are Likely to Fail",
-    "summary": "TechCrunch makes a historical case that restricting the export of cybersecurity-related software has failed consistently for 30 years \u2014 from encryption controls in the 1990s to spyware regulations in the 2010s \u2014 and argues the Anthropic Mythos ban repeats the same mistake. The piece provides the intellectual framework for understanding why the administration's approach may be self-defeating.",
+    "title": "Congress Is Considering Giving the Public an Equity Stake in Major AI Companies",
+    "summary": "Among this week's tech bills, a proposal to give the American public a share in the largest AI companies stands out as a structurally novel approach to AI governance \u2014 one that would change the political economy of AI regulation.",
     "keyPoints": [
-      "The encryption export control precedent is directly relevant: the US fought for years to keep strong encryption out of foreign hands, failed, and ultimately reversed course",
-      "Spyware export controls similarly failed to contain dual-use surveillance technology, which spread globally despite restrictions",
-      "The argument that Mythos jailbreaks 'exist in other models' is particularly pointed: export controls on one model don't address the vulnerability if the capability exists elsewhere",
-      "This creates a policy design problem \u2014 if AI capabilities can't be meaningfully contained by export control, what governance tools actually work?",
-      "The EU has taken a different approach: rather than restricting AI exports, it has focused on regulating AI use domestically via the AI Act \u2014 a regulatory strategy vs. a containment strategy"
+      "Public equity in AI companies would align citizen interests with industry success \u2014 and potentially mute political opposition to AI",
+      "The proposal is structurally similar to sovereign wealth fund concepts being discussed in other countries",
+      "If passed, it would create novel conflicts of interest for regulators whose constituents are now shareholders",
+      "The bill exists alongside other tech legislation on biodata, quantum, and national security \u2014 part of a broader legislative push",
+      "No EU equivalent exists, but the concept echoes debates about public benefit corporations and AI commons in European policy circles"
     ],
-    "blogAngle": "This TechCrunch piece is the analytical backbone for a deeper blog post about what AI governance tools actually work. A post could use the historical export control failure as a launching point to ask: if containment doesn't work, what does? The EU's regulatory approach \u2014 governing use rather than restricting access \u2014 is the obvious alternative to examine. Suzanne's daughter's EU institutional background is directly relevant here: the AI Act is explicitly a use-regulation framework, not a containment framework, and understanding why that distinction matters is central to the transatlantic AI governance conversation.",
-    "source": "TechCrunch",
-    "sourceUrl": "https://techcrunch.com/2026/06/19/encryption-spyware-and-now-mythos-history-shows-why-cyber-export-control-doesnt-work/",
+    "blogAngle": "Public equity in AI companies is a genuinely novel policy idea that deserves more serious analysis than it's getting. A post could examine what this would actually mean for AI governance \u2014 does citizen ownership align incentives, or does it compromise regulatory independence? Suzanne's daughter's ESM background in financial institutions would add an interesting lens: how do European financial and stability institutions think about public stakes in systemically important technology companies?",
+    "source": "Nextgov/FCW",
+    "sourceUrl": "https://www.nextgov.com/policy/2026/06/tech-bills-week-managing-biological-data-evaluating-quantum-computings-impact-national-security-and-more/414280/",
     "scores": {
       "convo": 5,
       "gov": 3,
@@ -488,70 +488,70 @@ const stories = [
   },
   {
     "id": 16,
-    "category": "defense",
-    "tag": "Defense & Intel",
-    "tagClass": "tag-defense",
-    "title": "DARPA's Self-Organizing Drone Push Tackles Autonomous Warfare's Hidden People Problem",
-    "summary": "Despite their promise, autonomous weapons systems currently require substantial human support infrastructure \u2014 operators, logistics, maintenance \u2014 undermining their efficiency advantage. DARPA is funding new programs to develop truly self-organizing drone swarms that reduce this human overhead, targeting the operational bottleneck that uncrewed systems have yet to solve.",
+    "category": "company",
+    "tag": "AI Companies",
+    "tagClass": "tag-company",
+    "title": "AI Layoffs in Tech Are Accelerating \u2014 and Governments Are Watching",
+    "summary": "A running tracker of major 2026 tech layoffs where employers explicitly cited AI documents a growing pattern: AI is now being named as a direct cause of workforce reduction, not just a background factor.",
     "keyPoints": [
-      "The revelation that uncrewed systems 'require a lot of people' punctures a key assumption of autonomous warfare \u2014 current systems are autonomous in flight but not in support",
-      "DARPA's self-organizing swarm research targets the logistics and coordination layer, not just the platform \u2014 a more fundamental level of autonomy than most coverage acknowledges",
-      "If successful, genuinely self-organizing drone swarms would represent a qualitative shift in the relationship between human operators and autonomous systems",
-      "This research directly informs the broader defense AI budget expansion and the CCA selection \u2014 the Pentagon is investing across the autonomy stack, from platforms to logistics",
-      "EU defense researchers are aware of this trajectory but are operating under different ethical and legal constraints regarding the degree of human control required"
+      "Companies are increasingly willing to name AI as the reason for layoffs \u2014 a shift from earlier vague 'restructuring' language",
+      "The pattern raises the question of when government employers will face similar pressures or make similar decisions",
+      "EU member states have stronger labor protections that may slow but not prevent AI-driven workforce restructuring",
+      "Public sector unions in both the US and EU are beginning to negotiate AI-related workforce provisions",
+      "The tracker format makes the cumulative scale visible in a way individual announcements don't"
     ],
-    "blogAngle": "The 'uncrewed systems need a lot of people' finding is one of the most counterintuitive and underreported facts in the autonomous warfare conversation \u2014 and it has direct implications for how governments should be evaluating the efficiency claims of AI-enabled defense. A post could examine what 'autonomy' actually means operationally versus rhetorically, and ask how governments on both sides of the Atlantic are accounting for full-system human costs (not just platform costs) in their autonomous systems investments. This is a story about honest accounting in AI procurement, which is relevant far beyond defense.",
-    "source": "Defense One",
-    "sourceUrl": "https://www.defenseone.com/technology/2026/05/pentagon-drones-autonomous-warfare/413323/",
+    "blogAngle": "The private sector is now openly attributing layoffs to AI. The public sector will face equivalent pressures \u2014 but with very different constraints around civil service protections, union agreements, and political accountability. A post could examine what AI-driven workforce restructuring looks like in government versus industry, and how EU labor frameworks shape the difference. Suzanne's CORAS perspective on gov-tech workforce and her daughter's EU institutional experience would make this a genuinely transatlantic analysis.",
+    "source": "TechCrunch",
+    "sourceUrl": "https://techcrunch.com/2026/06/22/the-running-list-major-tech-layoffs-in-2026-where-employers-cited-ai/",
     "scores": {
-      "convo": 3,
+      "convo": 5,
       "gov": 4,
       "impact": 4
     }
   },
   {
     "id": 17,
-    "category": "company",
-    "tag": "AI Companies",
-    "tagClass": "tag-company",
-    "title": "OpenAI Hires Former Trump AI Policy Official Ahead of IPO \u2014 The Revolving Door Gets an AI Wing",
-    "summary": "OpenAI has hired former Trump administration AI policy official Dean Ball alongside Transformer co-inventor Noam Shazeer, in a week of high-profile talent moves ahead of its IPO. Ball's hire in particular raises questions about the relationship between AI policy influence and AI industry positioning.",
+    "category": "defense",
+    "tag": "Defense & Intel",
+    "tagClass": "tag-defense",
+    "title": "Former Pentagon Think Tank Head Joins Anthropic \u2014 the Revolving Door Gets an AI Upgrade",
+    "summary": "The former leader of the Pentagon's primary strategy think tank has joined Anthropic, describing AI adaptation as a 'civilizational' challenge \u2014 the latest in a pattern of senior national security figures moving into AI companies.",
     "keyPoints": [
-      "Hiring a former administration AI policy official is a standard influence-building move, but it lands differently when that official helped shape the regulatory environment the company now operates in",
-      "The dual hiring of a leading AI researcher (Shazeer) and a policy insider (Ball) reflects OpenAI's need to demonstrate both technical credibility and political navigation capability pre-IPO",
-      "The Anthropic ban and the ChatGPT-on-GenAI.mil deployment happened in the same week \u2014 the policy environment OpenAI is positioning itself to navigate is genuinely high-stakes",
-      "In the EU, similar revolving door dynamics exist but are governed by stricter cooling-off periods for senior officials moving to private sector roles",
-      "For government agencies procuring AI, the revolving door raises legitimate questions about whether policy decisions are being shaped by future employment considerations"
+      "The move continues a pattern of national security expertise flowing into AI labs, raising governance and conflict-of-interest questions",
+      "Framing AI as a 'civilizational' challenge from a former DoD official signals how the national security community views AI stakes",
+      "Anthropic in particular has cultivated a 'safety-focused' reputation that may make it attractive to policy-minded hires",
+      "These hires shape how AI companies engage with government \u2014 and how government officials think about industry",
+      "The EU has its own version of this: former MEPs and Commission officials increasingly joining or advising AI companies"
     ],
-    "blogAngle": "The Ball hire is easy to dismiss as routine DC politics, but it connects to something structural: the government officials who shape AI policy are also becoming the most valuable hires in the AI industry. A post could examine what this revolving door means for the integrity of AI governance \u2014 both in the US and in EU institutions, where the same dynamic is playing out under different rules. Suzanne's daughter's European Parliament traineeship experience gives her a ground-level view of how EU institutions try to manage conflicts of interest among officials who interact with the AI industry.",
-    "source": "TechCrunch",
-    "sourceUrl": "https://techcrunch.com/2026/06/18/openai-is-bringing-on-some-big-guns-in-the-lead-up-to-its-ipo/",
+    "blogAngle": "The national-security-to-AI-lab pipeline is becoming a structural feature of the AI landscape, not an anomaly. A post could examine what this talent flow means for AI governance \u2014 does it make companies more policy-literate, or does it risk regulatory capture? Suzanne's daughter's EU Parliament background gives her a unique vantage on how this plays out in Brussels, where the revolving door between EU institutions and industry is under increasing scrutiny.",
+    "source": "Defense One",
+    "sourceUrl": "https://www.defenseone.com/technology/2026/05/former-head-pentagons-think-tank-joins-anthropic/413256/",
     "scores": {
       "convo": 4,
-      "gov": 3,
+      "gov": 4,
       "impact": 3
     }
   },
   {
     "id": 18,
-    "category": "policy",
-    "tag": "Policy",
-    "tagClass": "tag-policy",
-    "title": "Who Decides When AI Is Too Dangerous to Release? The Process Doesn't Exist Yet.",
-    "summary": "The Decoder podcast with The Verge's senior AI reporter uses the Anthropic Fable 5 ban as a launching point to examine a fundamental governance gap: there is no established, transparent process for determining when an AI model poses sufficient risk to justify government intervention. The episode surfaces the questions that the ban should have answered but didn't.",
+    "category": "enterprise",
+    "tag": "Enterprise AI",
+    "tagClass": "tag-enterprise",
+    "title": "Anthropic's Claude Tag Embeds AI Into Slack \u2014 and Learns Your Organization Along the Way",
+    "summary": "Anthropic's new Claude Tag feature allows its AI to be summoned in any Slack conversation, but the deeper strategic play is capturing organizational context and institutional knowledge as a durable competitive advantage.",
     "keyPoints": [
-      "The absence of a defined risk evaluation process means the Fable 5 ban was effectively a discretionary executive decision with no published criteria or appeal mechanism",
-      "This governance gap affects all AI developers: if the standard for government intervention is undefined, the regulatory environment is unpredictable \u2014 which itself chills investment and development",
-      "The EU AI Act's conformity assessment process for high-risk AI is an attempt to create exactly this kind of defined pre-market evaluation \u2014 imperfect but more structured than the US approach",
-      "The question 'who decides?' is also a question about institutional competence: does the Trump administration have the technical expertise to make these determinations, or is it relying on external assessments?",
-      "The podcast format surfaces the uncertainty even among expert observers \u2014 a useful signal that the governance framework genuinely doesn't exist yet"
+      "Claude Tag positions Anthropic to capture enterprise workflows and organizational memory at scale",
+      "Unlike point-in-time queries, always-available Slack AI accumulates context that compounds over time",
+      "Government agencies using Slack face immediate questions about data sovereignty, classification, and vendor lock-in",
+      "The feature is part of a broader enterprise AI land-grab between Anthropic, OpenAI, Microsoft, and Google",
+      "EU data residency and AI Act compliance requirements create meaningful friction for this kind of ambient enterprise AI"
     ],
-    "blogAngle": "This podcast is the right framing for a substantive post: not 'what happened with Anthropic' but 'what process should exist for evaluating AI model risk, and who should run it?' A post could compare the ad-hoc US approach to the EU's structured pre-market assessment model, and ask whether either is actually adequate for the pace of AI development. Suzanne's daughter's EU Parliament background \u2014 particularly any exposure to AI Act implementation debates \u2014 makes this a natural topic for the blog's transatlantic lens. The deeper question: is a government even the right institution to make these calls, or should it be an independent technical body?",
-    "source": "The Verge",
-    "sourceUrl": "https://www.theverge.com/podcast/951542/anthropic-claude-fable-5-mythos-ban-pentagon-ai-regulation-trump",
+    "blogAngle": "Ambient AI that learns your organization through its communications is a qualitatively different governance challenge than a chatbot. For government agencies \u2014 especially EU institutions subject to GDPR and the AI Act \u2014 the question isn't just 'is this tool useful' but 'what are we giving away.' Suzanne's daughter's experience at the ESM, which handles sensitive financial data, would ground the EU governance dimension. A post could examine what 'organizational memory' capture by AI vendors means for government data sovereignty on both sides of the Atlantic.",
+    "source": "TechCrunch",
+    "sourceUrl": "https://techcrunch.com/2026/06/23/anthropics-claude-tag-is-learning-your-company-one-slack-message-at-a-time/",
     "scores": {
-      "convo": 5,
-      "gov": 3,
+      "convo": 4,
+      "gov": 4,
       "impact": 3
     }
   },
@@ -560,21 +560,44 @@ const stories = [
     "category": "company",
     "tag": "AI Companies",
     "tagClass": "tag-company",
-    "title": "Former Pentagon Think Tank Chief Joins Anthropic \u2014 Framing AI as a 'Civilizational' Challenge",
-    "summary": "The former head of the Pentagon's Office of Net Assessment \u2014 the Defense Department's long-range strategic planning unit \u2014 has joined Anthropic, calling AI adaptation a 'civilizational' challenge. The hire signals Anthropic's ambition to position itself not just as an AI lab but as a strategic actor in national security debates.",
+    "title": "Hollywood Studios Are Avoiding a Film About Sam Altman \u2014 and OpenAI May Be Why",
+    "summary": "Multiple major studios have declined to distribute a biographical film about OpenAI's Sam Altman, with reports suggesting industry pressure from OpenAI relationships is a factor \u2014 a striking example of AI corporate power extending into culture.",
     "keyPoints": [
-      "The Office of Net Assessment is the Pentagon's most forward-looking strategic unit, focused on long-term competition assessments \u2014 bringing that mindset to an AI lab is substantively different from hiring a policy communicator",
-      "The 'civilizational challenge' framing is Anthropic's consistent brand positioning \u2014 safety-focused but also strategically significant \u2014 and this hire reinforces it",
-      "This comes the same week Anthropic was fighting a government-imposed model ban, creating an interesting juxtaposition: the company is simultaneously being regulated and recruiting the regulators' intellectual peers",
-      "For EU observers, the proximity between US defense strategic thinking and commercial AI development is itself a data point about how the US AI ecosystem operates differently from Europe's",
-      "The revolving door here runs in the opposite direction from the OpenAI Ball hire \u2014 from defense strategy into industry, rather than from policy into industry"
+      "Netflix, A24, Focus Features, and Warner Bros. have all reportedly passed on the film",
+      "The pattern suggests OpenAI's commercial relationships may be influencing cultural gatekeepers",
+      "AI companies are now large enough to shape narratives about themselves through indirect economic pressure",
+      "This connects to the broader AI super PAC story \u2014 the industry is actively managing its public and political image",
+      "European cultural institutions and public broadcasters face different incentive structures, but similar pressures may emerge"
     ],
-    "blogAngle": "The Net Assessment hire is worth a focused examination of what it means when leading AI labs are actively recruiting the US national security community's strategic thinkers. A post could ask: is this a sign that AI development is genuinely a strategic challenge requiring that kind of thinking, or is it brand-building \u2014 using national security credibility to justify the company's existence in Washington? Suzanne's CORAS work at the intersection of government and technology gives her a practitioner's view of how these hires translate into actual policy influence versus posturing.",
-    "source": "Defense One",
-    "sourceUrl": "https://www.defenseone.com/technology/2026/05/former-head-pentagons-think-tank-joins-anthropic/413256/",
+    "blogAngle": "The studios' reluctance to distribute a film about Sam Altman, read alongside the $27M AI super PAC story, suggests AI companies are developing sophisticated narrative management capabilities alongside their technical ones. A post could examine what concentrated AI industry power means for public discourse about AI governance \u2014 and whether the EU's more pluralistic media environment and public broadcasting infrastructure offers any protection. This is a soft-power story with hard governance implications.",
+    "source": "The Verge",
+    "sourceUrl": "https://www.theverge.com/entertainment/954899/luca-guadagnino-artificial-sam-altman-amazon-a24-neon-mubi-chatgpt",
+    "scores": {
+      "convo": 4,
+      "gov": 2,
+      "impact": 3
+    }
+  },
+  {
+    "id": 20,
+    "category": "infra",
+    "tag": "Infrastructure",
+    "tagClass": "tag-infra",
+    "title": "Nvidia Claims Its New Data Center Design Has 'Eliminated' Water Consumption",
+    "summary": "Nvidia is promoting a fully liquid-cooled data center reference design it says eliminates most power usage and nearly all water consumption \u2014 a direct response to growing public and regulatory pressure on AI infrastructure's environmental footprint.",
+    "keyPoints": [
+      "AI data center water and energy consumption has become a political issue in both the US and EU",
+      "Nvidia's 'Rubin' liquid-cooling design represents the industry's technical response to sustainability pressure",
+      "Government procurement of AI services increasingly needs to account for environmental compliance and climate commitments",
+      "EU sustainability disclosure requirements and the Green Deal create stronger regulatory pressure on data center operators in Europe",
+      "The gap between vendor sustainability claims and independent verification remains a governance challenge"
+    ],
+    "blogAngle": "AI's infrastructure footprint is becoming a policy constraint, not just a PR challenge. A post could examine how government AI procurement on both sides of the Atlantic is (or should be) incorporating sustainability requirements \u2014 and whether EU Green Deal commitments are actually changing how governments evaluate AI vendors. Suzanne's CORAS perspective on procurement and her daughter's EU institutional background would frame this as a practical governance question, not just an environmental one.",
+    "source": "The Verge",
+    "sourceUrl": "https://www.theverge.com/tech/954139/nvidia-data-centers-rubin-liquid-cooling",
     "scores": {
       "convo": 3,
-      "gov": 3,
+      "gov": 4,
       "impact": 3
     }
   }
